@@ -1,0 +1,43 @@
+/* Nord önizleme teması */
+#preview[data-theme='nord'] { background: #2e3440; color: #d8dee9; }
+#preview[data-theme='nord'] h1,
+#preview[data-theme='nord'] h2,
+#preview[data-theme='nord'] h3,
+#preview[data-theme='nord'] h4,
+#preview[data-theme='nord'] h5,
+#preview[data-theme='nord'] h6 { color: #88c0d0; border-color: #434c5e; }
+#preview[data-theme='nord'] h1, #preview[data-theme='nord'] h2 { color: #8fbcbb; }
+#preview[data-theme='nord'] a { color: #81a1c1; }
+#preview[data-theme='nord'] blockquote { color: #a7b1c2; border-color: #4c566a; }
+#preview[data-theme='nord'] code { background: #3b4252; color: #81a1c1; }
+#preview[data-theme='nord'] pre { background: #3b4252; }
+#preview[data-theme='nord'] pre code { color: #d8dee9; }
+#preview[data-theme='nord'] th, #preview[data-theme='nord'] td { border-color: #434c5e; }
+#preview[data-theme='nord'] th { background: #3b4252; color: #88c0d0; }
+#preview[data-theme='nord'] tr:nth-child(2n) { background: rgba(216, 222, 233, 0.04); }
+#preview[data-theme='nord'] hr { background: #434c5e; }
+#preview[data-theme='nord'] mark { background: #ebcb8b; color: #2e3440; }
+#preview[data-theme='nord'] kbd { background: #3b4252; border-color: #4c566a; color: #a3be8c; }
+
+/* kod renklendirme (nord) */
+#preview[data-theme='nord'] .hljs { color: #d8dee9; background: #3b4252; }
+#preview[data-theme='nord'] .hljs-comment, #preview[data-theme='nord'] .hljs-quote { color: #616e88; }
+#preview[data-theme='nord'] .hljs-doctag, #preview[data-theme='nord'] .hljs-keyword,
+#preview[data-theme='nord'] .hljs-formula, #preview[data-theme='nord'] .hljs-name,
+#preview[data-theme='nord'] .hljs-section, #preview[data-theme='nord'] .hljs-selector-tag,
+#preview[data-theme='nord'] .hljs-strong, #preview[data-theme='nord'] .hljs-type { color: #81a1c1; }
+#preview[data-theme='nord'] .hljs-attr, #preview[data-theme='nord'] .hljs-attribute,
+#preview[data-theme='nord'] .hljs-variable, #preview[data-theme='nord'] .hljs-template-variable,
+#preview[data-theme='nord'] .hljs-class .hljs-title,
+#preview[data-theme='nord'] .hljs-title.class_ { color: #8fbcbb; }
+#preview[data-theme='nord'] .hljs-symbol, #preview[data-theme='nord'] .hljs-bullet,
+#preview[data-theme='nord'] .hljs-meta, #preview[data-theme='nord'] .hljs-link,
+#preview[data-theme='nord'] .hljs-selector-attr, #preview[data-theme='nord'] .hljs-selector-pseudo { color: #d8dee9; }
+#preview[data-theme='nord'] .hljs-number, #preview[data-theme='nord'] .hljs-regexp { color: #b48ead; }
+#preview[data-theme='nord'] .hljs-built_in, #preview[data-theme='nord'] .hljs-builtin-name,
+#preview[data-theme='nord'] .hljs-literal, #preview[data-theme='nord'] .hljs-type { color: #81a1c1; }
+#preview[data-theme='nord'] .hljs-string, #preview[data-theme='nord'] .hljs-meta .hljs-string { color: #a3be8c; }
+#preview[data-theme='nord'] .hljs-title,
+#preview[data-theme='nord'] .hljs-title.function_ { color: #88c0d0; }
+#preview[data-theme='nord'] .hljs-addition { color: #a3be8c; background: rgba(163, 190, 140, 0.12); }
+#preview[data-theme='nord'] .hljs-deletion { color: #bf616a; background: rgba(191, 97, 106, 0.12); }

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VeloMD — Featherweight Markdown Editor</title>
+<meta name="description" content="A featherweight Markdown editor for Linux: split-pane live preview, tabs with hot-exit restore, find & replace, bilingual UI. GTK4 + WebKit, ~600 KB.">
+<link rel="icon" type="image/png" href="logo.png">
+<style>
+  :root {
+    --bg: #0d1017;
+    --bg-panel: #131722;
+    --bg-elevated: #1a2030;
+    --fg: #e6edf3;
+    --fg-dim: #8b949e;
+    --border: #262d3d;
+    --accent: #f98a25;
+    --accent2: #7b5cff;
+    --ok: #3fb950;
+    --mono: ui-monospace, 'JetBrains Mono', 'Fira Code', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Inter', 'Cantarell', 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* ---- hero ---- */
+  .hero {
+    position: relative;
+    padding: 90px 24px 70px;
+    text-align: center;
+    background:
+      radial-gradient(600px 300px at 20% 0%, rgba(123, 92, 255, 0.14), transparent 70%),
+      radial-gradient(700px 340px at 85% 10%, rgba(249, 138, 37, 0.12), transparent 70%);
+  }
+  .hero-logo {
+    width: 92px; height: 92px;
+    border-radius: 22px;
+    box-shadow: 0 18px 50px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.06);
+  }
+  .hero h1 {
+    margin-top: 22px;
+    font-size: clamp(38px, 6vw, 58px);
+    letter-spacing: -.5px;
+    font-weight: 800;
+  }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero p.tagline {
+    margin: 14px auto 0;
+    max-width: 640px;
+    color: var(--fg-dim);
+    font-size: 18px;
+  }
+  .lang-switch { margin-top: 16px; font-size: 14px; color: var(--fg-dim); }
+  .lang-switch a { color: var(--accent); }
+  .lang-switch a:hover { text-decoration: underline; }
+  .badges { margin-top: 18px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12.5px; font-weight: 600;
+    padding: 5px 12px; border-radius: 999px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,.03);
+    color: var(--fg-dim);
+  }
+  .badge b { color: var(--fg); }
+  .cta { margin-top: 34px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    height: 46px; padding: 0 24px;
+    border-radius: 11px; font-weight: 700; font-size: 15px;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent) 0%, #ff9d42 100%);
+    color: #1b1002;
+    box-shadow: 0 10px 30px rgba(249, 138, 37, .3);
+  }
+  .btn-ghost {
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,.03);
+    color: var(--fg);
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+  .btn svg { width: 18px; height: 18px; }
+
+  .shot-wrap {
+    max-width: 980px; margin: 58px auto 0;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    box-shadow: 0 40px 90px rgba(0,0,0,.55);
+    overflow: hidden;
+    background: var(--bg-panel);
+  }
+  .shot-wrap img { display: block; width: 100%; }
+
+  /* ---- sections ---- */
+  section.block { max-width: 1080px; margin: 0 auto; padding: 72px 24px; }
+  .kicker {
+    color: var(--accent); font-weight: 700; font-size: 13px;
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+  h2.sec { font-size: 32px; margin: 8px 0 14px; letter-spacing: -.3px; }
+  .sec-lead { color: var(--fg-dim); max-width: 640px; }
+
+  .grid {
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px;
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .card .ico {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(249, 138, 37, .12);
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .card .ico svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .card h3 { font-size: 16.5px; margin-bottom: 8px; }
+  .card p { color: var(--fg-dim); font-size: 14px; }
+  .card code, kbd.code {
+    font-family: var(--mono); font-size: 12px;
+    background: rgba(255,255,255,.06); border-radius: 4px; padding: 1px 5px;
+    color: #ffb86c;
+  }
+
+  /* ---- themes strip ---- */
+  .themes { margin-top: 36px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .theme-chip {
+    display: flex; align-items: center; gap: 10px;
+    border: 1px solid var(--border); border-radius: 999px;
+    padding: 7px 16px 7px 8px; font-size: 13.5px; color: var(--fg-dim);
+  }
+  .dots { display: flex; }
+  .dots i { width: 14px; height: 14px; border-radius: 50%; display: block; }
+  .dots i + i { margin-left: -5px; }
+
+  /* ---- install ---- */
+  .terminal {
+    margin-top: 30px;
+    background: #0a0d13;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0,0,0,.4);
+  }
+  .term-head {
+    display: flex; align-items: center; gap: 7px;
+    padding: 11px 14px; background: var(--bg-panel);
+    border-bottom: 1px solid var(--border);
+  }
+  .term-head i { width: 12px; height: 12px; border-radius: 50%; display: block; }
+  .term-head i:nth-child(1) { background: #ff5f57; }
+  .term-head i:nth-child(2) { background: #febc2e; }
+  .term-head i:nth-child(3) { background: #28c840; }
+  .term-head span { margin-left: 8px; font-size: 12px; color: var(--fg-dim); font-family: var(--mono); }
+  .term-body { padding: 18px 20px; font-family: var(--mono); font-size: 14px; line-height: 1.9; }
+  .term-body .p { color: var(--accent); }
+  .term-body .c { color: var(--fg-dim); }
+  .term-body .o { color: #7ee787; }
+
+  /* ---- shortcuts ---- */
+  table.keys { width: 100%; margin-top: 28px; border-collapse: collapse; font-size: 14px; }
+  table.keys td { padding: 9px 14px; border-bottom: 1px solid var(--border); }
+  table.keys td:first-child { white-space: nowrap; width: 1%; }
+  table.keys kbd {
+    font-family: var(--mono); font-size: 12px;
+    background: var(--bg-elevated); border: 1px solid var(--border);
+    border-bottom-width: 2px; border-radius: 5px; padding: 2px 7px;
+  }
+  table.keys td:last-child { color: var(--fg-dim); }
+
+  /* ---- footer ---- */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 34px 24px 44px;
+    text-align: center; color: var(--fg-dim); font-size: 13.5px;
+  }
+  footer a { color: var(--accent); }
+  footer .mini-logo { width: 26px; height: 26px; border-radius: 7px; margin-bottom: 10px; }
+
+  @media (max-width: 640px) {
+    .hero { padding-top: 60px; }
+    section.block { padding: 52px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <img class="hero-logo" src="logo.png" alt="VeloMD logo">
+  <h1>Velo<em>MD</em></h1>
+  <p class="tagline">A featherweight Markdown editor for Linux — your source on the left, live preview on the right. No Electron, no pip, ~600 KB.</p>
+  <div class="lang-switch">
+    <span>English</span> · <a href="index.tr.html">Türkçe</a>
+  </div>
+  <div class="badges">
+    <span class="badge">GTK4 <b>+ WebKit</b></span>
+    <span class="badge">Python <b>3.8+</b></span>
+    <span class="badge"><b>Turkish</b> / English UI</span>
+    <span class="badge"><b>~600 KB</b> · offline</span>
+  </div>
+  <div class="cta">
+    <a class="btn btn-primary" href="https://github.com/tkinali/VeloMD" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.7 1.25 3.35.96.1-.75.4-1.25.72-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.25 5.66.41.36.77 1.05.77 2.13v3.16c0 .3.21.66.8.55A11.52 11.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+      View on GitHub
+    </a>
+    <a class="btn btn-ghost" href="#install">
+      <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Installation
+    </a>
+  </div>
+  <div class="shot-wrap">
+    <img src="screenshots/main-window.png" alt="VeloMD main window — editor on the left, live preview on the right">
+  </div>
+</div>
+
+<section class="block">
+  <span class="kicker">Features</span>
+  <h2 class="sec">Built around the way you write</h2>
+  <p class="sec-lead">The interface is one idea: your source on the left, the rendered page on the right. Everything else is speed and comfort — synchronized scrolling, line highlighting, search on both sides.</p>
+  <div class="grid">
+    <div class="card">
+      <div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="12" y1="4" x2="12" y2="20"/></svg></div>
+      <h3>Split-pane live preview</h3>
+      <p>Render as you type. Two-way synchronized scrolling and the cursor's line highlighted in orange in the preview — via a source-line map.</p>
+    </div>
+    <div class="card">
+      <div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div>
+      <h3>Tabs + hot-exit</h3>
+      <p>Several files at once. Close and reopen the app: your tabs, the active tab, and unsaved buffer contents come right back.</p>
+    </div>
+    <div class="card">
+      <div class="ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg></div>
+      <h3>Find &amp; replace</h3>
+      <p><code>Ctrl+F</code> on either side: a find/replace bar in the editor, a counted search in the preview. <code>Ctrl+Enter</code> replaces all.</p>
+    </div>
+    <div class="card">
+      <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18M3 12h18"/></svg></div>
+      <h3>System fonts, themes</h3>
+      <p>Font lists come live from <code>fc-list</code> — monospace only for the editor. Light/dark/system app theme, six preview themes.</p>
+    </div>
+    <div class="card">
+      <div class="ico"><svg viewBox="0 0 24 24"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 4h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg></div>
+      <h3>Code blocks with a language picker</h3>
+      <p>Pick Bash, Python, PHP, C, JS… from the toolbar's <code>``` ▾</code> menu; highlight.js colors your code.</p>
+    </div>
+    <div class="card">
+      <div class="ico"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+      <h3>Lightweight &amp; offline</h3>
+      <p>~600 KB of vendored JS on GTK4 + WebKit2GTK. No Electron, no Node, no internet required. A single <code>install.sh</code>.</p>
+    </div>
+  </div>
+
+  <div class="themes">
+    <span class="kicker" style="align-self:center; margin-right:6px;">Themes:</span>
+    <span class="theme-chip"><span class="dots"><i style="background:#0d1117"></i><i style="background:#c9d1d9"></i><i style="background:#ff7b72"></i></span>GitHub</span>
+    <span class="theme-chip"><span class="dots"><i style="background:#fdf6e3"></i><i style="background:#586e75"></i><i style="background:#859900"></i></span>Solarized</span>
+    <span class="theme-chip"><span class="dots"><i style="background:#272822"></i><i style="background:#f8f8f2"></i><i style="background:#f92672"></i></span>Monokai</span>
+    <span class="theme-chip"><span class="dots"><i style="background:#282a36"></i><i style="background:#f8f8f2"></i><i style="background:#bd93f9"></i></span>Dracula</span>
+    <span class="theme-chip"><span class="dots"><i style="background:#2e3440"></i><i style="background:#d8dee9"></i><i style="background:#88c0d0"></i></span>Nord</span>
+    <span class="theme-chip"><span class="dots"><i style="background:#282c34"></i><i style="background:#abb2bf"></i><i style="background:#e5c07b"></i></span>One Dark</span>
+  </div>
+</section>
+
+<section class="block" id="install">
+  <span class="kicker">Installation</span>
+  <h2 class="sec">One command, any distribution</h2>
+  <p class="sec-lead">The installer checks dependencies and installs them through your package manager if missing; it puts the <code style="font-family:var(--mono)">velomd</code> command and the application-menu entry in place.</p>
+  <div class="terminal">
+    <div class="term-head"><i></i><i></i><i></i><span>bash</span></div>
+    <div class="term-body">
+      <div><span class="p">$</span> git clone https://github.com/tkinali/VeloMD.git</div>
+      <div><span class="p">$</span> cd VeloMD</div>
+      <div><span class="p">$</span> ./install.sh</div>
+      <div><span class="c">✓ Python 3.14 found</span></div>
+      <div><span class="c">✓ System dependencies already installed</span></div>
+      <div><span class="c">✓ Command installed: ~/.local/bin/velomd</span></div>
+      <div><span class="o">✓ Installation complete!</span></div>
+      <div><span class="p">$</span> velomd NOTES.md</div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <span class="kicker">Shortcuts</span>
+  <h2 class="sec">Let your fingers memorize them</h2>
+  <table class="keys">
+    <tr><td><kbd>Ctrl</kbd> + <kbd>F</kbd></td><td>Search — editor (find &amp; replace) when focused, preview otherwise</td></tr>
+    <tr><td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd></td><td>Open the find &amp; replace bar focused on the Replace field</td></tr>
+    <tr><td><kbd>Ctrl</kbd> + <kbd>S</kbd> / <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd></td><td>Save / save as (autosave included)</td></tr>
+    <tr><td><kbd>Ctrl</kbd> + <kbd>T</kbd> / <kbd>Ctrl</kbd> + <kbd>W</kbd></td><td>New tab / close tab</td></tr>
+    <tr><td><kbd>Ctrl</kbd> + <kbd>B</kbd> / <kbd>I</kbd> / <kbd>K</kbd></td><td>Bold / italic / link</td></tr>
+    <tr><td><kbd>Ctrl</kbd> + <kbd>,</kbd></td><td>Settings — theme, language, fonts, autosave</td></tr>
+    <tr><td><kbd>Ctrl</kbd> + <kbd>=</kbd> / <kbd>-</kbd> / <kbd>0</kbd></td><td>Font size up / down / reset</td></tr>
+  </table>
+</section>
+
+<footer>
+  <img class="mini-logo" src="logo.png" alt="">
+  <div><a href="https://github.com/tkinali/VeloMD" target="_blank" rel="noopener">github.com/tkinali/VeloMD</a> · MIT license</div>
+  <div style="margin-top:6px; font-size:12.5px;">Built with GTK4 + WebKit2GTK — no Electron involved.</div>
+</footer>
+
+</body>
+</html>

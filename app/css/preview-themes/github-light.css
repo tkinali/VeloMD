@@ -1,0 +1,47 @@
+/* GitHub Light önizleme teması */
+#preview[data-theme='github-light'] { background: #ffffff; color: #1f2328; }
+#preview[data-theme='github-light'] h1,
+#preview[data-theme='github-light'] h2,
+#preview[data-theme='github-light'] h3,
+#preview[data-theme='github-light'] h4,
+#preview[data-theme='github-light'] h5,
+#preview[data-theme='github-light'] h6 { color: #1f2328; border-color: #d1d9e0; }
+#preview[data-theme='github-light'] a { color: #0969da; }
+#preview[data-theme='github-light'] blockquote { color: #59636e; border-color: #d1d9e0; }
+#preview[data-theme='github-light'] code { background: rgba(175, 184, 193, 0.22); color: #1f2328; }
+#preview[data-theme='github-light'] pre { background: #f6f8fa; }
+#preview[data-theme='github-light'] pre code { color: #24292e; }
+#preview[data-theme='github-light'] th, #preview[data-theme='github-light'] td { border-color: #d1d9e0; }
+#preview[data-theme='github-light'] th { background: #f6f8fa; }
+#preview[data-theme='github-light'] tr { background: #ffffff; }
+#preview[data-theme='github-light'] tr:nth-child(2n) { background: #f6f8fa; }
+#preview[data-theme='github-light'] hr { background: #d1d9e0; }
+#preview[data-theme='github-light'] img { background: #ffffff; }
+#preview[data-theme='github-light'] mark { background: #fff8c5; color: #1f2328; }
+#preview[data-theme='github-light'] kbd { background: #f6f8fa; border-color: #d1d9e0; color: #1f2328; }
+
+/* kod renklendirme (github light) */
+#preview[data-theme='github-light'] .hljs { color: #24292e; background: #f6f8fa; }
+#preview[data-theme='github-light'] .hljs-doctag, #preview[data-theme='github-light'] .hljs-keyword,
+#preview[data-theme='github-light'] .hljs-meta .hljs-keyword, #preview[data-theme='github-light'] .hljs-template-tag,
+#preview[data-theme='github-light'] .hljs-template-variable, #preview[data-theme='github-light'] .hljs-type,
+#preview[data-theme='github-light'] .hljs-variable.language_ { color: #d73a49; }
+#preview[data-theme='github-light'] .hljs-title, #preview[data-theme='github-light'] .hljs-title.class_,
+#preview[data-theme='github-light'] .hljs-title.class_.inherited__, #preview[data-theme='github-light'] .hljs-title.function_ { color: #6f42c1; }
+#preview[data-theme='github-light'] .hljs-attr, #preview[data-theme='github-light'] .hljs-attribute,
+#preview[data-theme='github-light'] .hljs-literal, #preview[data-theme='github-light'] .hljs-meta,
+#preview[data-theme='github-light'] .hljs-number, #preview[data-theme='github-light'] .hljs-operator,
+#preview[data-theme='github-light'] .hljs-selector-attr, #preview[data-theme='github-light'] .hljs-selector-class,
+#preview[data-theme='github-light'] .hljs-selector-id, #preview[data-theme='github-light'] .hljs-variable { color: #005cc5; }
+#preview[data-theme='github-light'] .hljs-meta .hljs-string, #preview[data-theme='github-light'] .hljs-regexp,
+#preview[data-theme='github-light'] .hljs-string { color: #032f62; }
+#preview[data-theme='github-light'] .hljs-built_in, #preview[data-theme='github-light'] .hljs-symbol { color: #e36209; }
+#preview[data-theme='github-light'] .hljs-code, #preview[data-theme='github-light'] .hljs-comment,
+#preview[data-theme='github-light'] .hljs-formula { color: #6a737d; }
+#preview[data-theme='github-light'] .hljs-name, #preview[data-theme='github-light'] .hljs-quote,
+#preview[data-theme='github-light'] .hljs-selector-pseudo, #preview[data-theme='github-light'] .hljs-selector-tag { color: #22863a; }
+#preview[data-theme='github-light'] .hljs-subst { color: #24292e; }
+#preview[data-theme='github-light'] .hljs-section { color: #005cc5; font-weight: 700; }
+#preview[data-theme='github-light'] .hljs-bullet { color: #735c0f; }
+#preview[data-theme='github-light'] .hljs-addition { color: #22863a; background-color: #f0fff4; }
+#preview[data-theme='github-light'] .hljs-deletion { color: #b31d28; background-color: #ffeef0; }

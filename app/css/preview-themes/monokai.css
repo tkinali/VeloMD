@@ -1,0 +1,41 @@
+/* Monokai önizleme teması */
+#preview[data-theme='monokai'] { background: #272822; color: #f8f8f2; }
+#preview[data-theme='monokai'] h1,
+#preview[data-theme='monokai'] h2,
+#preview[data-theme='monokai'] h3,
+#preview[data-theme='monokai'] h4,
+#preview[data-theme='monokai'] h5,
+#preview[data-theme='monokai'] h6 { color: #a6e22e; border-color: #49483e; }
+#preview[data-theme='monokai'] h1, #preview[data-theme='monokai'] h2 { color: #66d9ef; }
+#preview[data-theme='monokai'] a { color: #66d9ef; }
+#preview[data-theme='monokai'] blockquote { color: #a1a590; border-color: #75715e; }
+#preview[data-theme='monokai'] code { background: #3e3d32; color: #f8f8f2; }
+#preview[data-theme='monokai'] pre { background: #3e3d32; }
+#preview[data-theme='monokai'] th, #preview[data-theme='monokai'] td { border-color: #49483e; }
+#preview[data-theme='monokai'] th { background: #3e3d32; color: #a6e22e; }
+#preview[data-theme='monokai'] tr:nth-child(2n) { background: rgba(255, 255, 255, 0.035); }
+#preview[data-theme='monokai'] hr { background: #49483e; }
+#preview[data-theme='monokai'] mark { background: #44761d; color: #f8f8f2; }
+#preview[data-theme='monokai'] kbd { background: #3e3d32; border-color: #75715e; color: #e6db74; }
+
+/* kod renklendirme (monokai) */
+#preview[data-theme='monokai'] .hljs { color: #f8f8f2; background: #3e3d32; }
+#preview[data-theme='monokai'] .hljs-keyword, #preview[data-theme='monokai'] .hljs-literal,
+#preview[data-theme='monokai'] .hljs-name, #preview[data-theme='monokai'] .hljs-number,
+#preview[data-theme='monokai'] .hljs-selector-tag, #preview[data-theme='monokai'] .hljs-strong,
+#preview[data-theme='monokai'] .hljs-tag { color: #f92672; }
+#preview[data-theme='monokai'] .hljs-code { color: #66d9ef; }
+#preview[data-theme='monokai'] .hljs-attr, #preview[data-theme='monokai'] .hljs-attribute,
+#preview[data-theme='monokai'] .hljs-link, #preview[data-theme='monokai'] .hljs-regexp,
+#preview[data-theme='monokai'] .hljs-symbol { color: #bf79db; }
+#preview[data-theme='monokai'] .hljs-addition, #preview[data-theme='monokai'] .hljs-built_in,
+#preview[data-theme='monokai'] .hljs-bullet, #preview[data-theme='monokai'] .hljs-emphasis,
+#preview[data-theme='monokai'] .hljs-section, #preview[data-theme='monokai'] .hljs-selector-attr,
+#preview[data-theme='monokai'] .hljs-selector-pseudo, #preview[data-theme='monokai'] .hljs-string,
+#preview[data-theme='monokai'] .hljs-subst, #preview[data-theme='monokai'] .hljs-template-tag,
+#preview[data-theme='monokai'] .hljs-template-variable, #preview[data-theme='monokai'] .hljs-title,
+#preview[data-theme='monokai'] .hljs-type, #preview[data-theme='monokai'] .hljs-variable { color: #a6e22e; }
+#preview[data-theme='monokai'] .hljs-class .hljs-title,
+#preview[data-theme='monokai'] .hljs-title.class_ { color: #ffffff; }
+#preview[data-theme='monokai'] .hljs-comment, #preview[data-theme='monokai'] .hljs-deletion,
+#preview[data-theme='monokai'] .hljs-meta, #preview[data-theme='monokai'] .hljs-quote { color: #75715e; }

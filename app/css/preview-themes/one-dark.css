@@ -1,0 +1,44 @@
+/* One Dark önizleme teması */
+#preview[data-theme='one-dark'] { background: #282c34; color: #abb2bf; }
+#preview[data-theme='one-dark'] h1,
+#preview[data-theme='one-dark'] h2,
+#preview[data-theme='one-dark'] h3,
+#preview[data-theme='one-dark'] h4,
+#preview[data-theme='one-dark'] h5,
+#preview[data-theme='one-dark'] h6 { color: #e5c07b; border-color: #3e4451; }
+#preview[data-theme='one-dark'] h1, #preview[data-theme='one-dark'] h2 { color: #e06c75; }
+#preview[data-theme='one-dark'] a { color: #61afef; }
+#preview[data-theme='one-dark'] blockquote { color: #7f8794; border-color: #545862; }
+#preview[data-theme='one-dark'] code { background: #2c313a; color: #98c379; }
+#preview[data-theme='one-dark'] pre { background: #2c313a; }
+#preview[data-theme='one-dark'] pre code { color: #abb2bf; }
+#preview[data-theme='one-dark'] th, #preview[data-theme='one-dark'] td { border-color: #3e4451; }
+#preview[data-theme='one-dark'] th { background: #2c313a; color: #e5c07b; }
+#preview[data-theme='one-dark'] tr:nth-child(2n) { background: rgba(171, 178, 191, 0.05); }
+#preview[data-theme='one-dark'] hr { background: #3e4451; }
+#preview[data-theme='one-dark'] mark { background: #e5c07b; color: #282c34; }
+#preview[data-theme='one-dark'] kbd { background: #2c313a; border-color: #545862; color: #56b6c2; }
+
+/* kod renklendirme (one dark) */
+#preview[data-theme='one-dark'] .hljs { color: #abb2bf; background: #2c313a; }
+#preview[data-theme='one-dark'] .hljs-comment, #preview[data-theme='one-dark'] .hljs-quote { color: #5c6370; font-style: italic; }
+#preview[data-theme='one-dark'] .hljs-doctag, #preview[data-theme='one-dark'] .hljs-formula,
+#preview[data-theme='one-dark'] .hljs-keyword, #preview[data-theme='one-dark'] .hljs-section { color: #c678dd; }
+#preview[data-theme='one-dark'] .hljs-name, #preview[data-theme='one-dark'] .hljs-selector-tag,
+#preview[data-theme='one-dark'] .hljs-deletion, #preview[data-theme='one-dark'] .hljs-template-tag { color: #e06c75; }
+#preview[data-theme='one-dark'] .hljs-link, #preview[data-theme='one-dark'] .hljs-regexp,
+#preview[data-theme='one-dark'] .hljs-selector-attr, #preview[data-theme='one-dark'] .hljs-selector-pseudo,
+#preview[data-theme='one-dark'] .hljs-symbol { color: #56b6c2; }
+#preview[data-theme='one-dark'] .hljs-attr, #preview[data-theme='one-dark'] .hljs-attribute,
+#preview[data-theme='one-dark'] .hljs-number, #preview[data-theme='one-dark'] .hljs-variable,
+#preview[data-theme='one-dark'] .hljs-template-variable { color: #d19a66; }
+#preview[data-theme='one-dark'] .hljs-meta { color: #61afef; }
+#preview[data-theme='one-dark'] .hljs-built_in, #preview[data-theme='one-dark'] .hljs-class .hljs-title,
+#preview[data-theme='one-dark'] .hljs-title.class_ { color: #e5c07b; }
+#preview[data-theme='one-dark'] .hljs-string, #preview[data-theme='one-dark'] .hljs-meta .hljs-string,
+#preview[data-theme='one-dark'] .hljs-addition { color: #98c379; }
+#preview[data-theme='one-dark'] .hljs-title,
+#preview[data-theme='one-dark'] .hljs-title.function_,
+#preview[data-theme='one-dark'] .hljs-literal { color: #61afef; }
+#preview[data-theme='one-dark'] .hljs-subst { color: #abb2bf; }
+#preview[data-theme='one-dark'] .hljs-strong { font-weight: bold; }

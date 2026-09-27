@@ -1,0 +1,45 @@
+/* GitHub Dark önizleme teması */
+#preview[data-theme='github-dark'] { background: #0d1117; color: #c9d1d9; }
+#preview[data-theme='github-dark'] h1,
+#preview[data-theme='github-dark'] h2,
+#preview[data-theme='github-dark'] h3,
+#preview[data-theme='github-dark'] h4,
+#preview[data-theme='github-dark'] h5,
+#preview[data-theme='github-dark'] h6 { color: #f0f6fc; border-color: #30363d; }
+#preview[data-theme='github-dark'] a { color: #58a6ff; }
+#preview[data-theme='github-dark'] blockquote { color: #8b949e; border-color: #3b434b; }
+#preview[data-theme='github-dark'] code { background: rgba(110, 118, 129, 0.28); color: #c9d1d9; }
+#preview[data-theme='github-dark'] pre { background: #161b22; }
+#preview[data-theme='github-dark'] pre code { color: #c9d1d9; }
+#preview[data-theme='github-dark'] th, #preview[data-theme='github-dark'] td { border-color: #30363d; }
+#preview[data-theme='github-dark'] th { background: #161b22; }
+#preview[data-theme='github-dark'] tr:nth-child(2n) { background: rgba(110, 118, 129, 0.10); }
+#preview[data-theme='github-dark'] hr { background: #30363d; }
+#preview[data-theme='github-dark'] mark { background: #bb800926; color: #e3b341; }
+#preview[data-theme='github-dark'] kbd { background: #161b22; border-color: #30363d; color: #b6bcc8; }
+
+/* kod renklendirme (github dark) */
+#preview[data-theme='github-dark'] .hljs { color: #c9d1d9; background: #161b22; }
+#preview[data-theme='github-dark'] .hljs-doctag, #preview[data-theme='github-dark'] .hljs-keyword,
+#preview[data-theme='github-dark'] .hljs-meta .hljs-keyword, #preview[data-theme='github-dark'] .hljs-template-tag,
+#preview[data-theme='github-dark'] .hljs-template-variable, #preview[data-theme='github-dark'] .hljs-type,
+#preview[data-theme='github-dark'] .hljs-variable.language_ { color: #ff7b72; }
+#preview[data-theme='github-dark'] .hljs-title, #preview[data-theme='github-dark'] .hljs-title.class_,
+#preview[data-theme='github-dark'] .hljs-title.class_.inherited__, #preview[data-theme='github-dark'] .hljs-title.function_ { color: #d2a8ff; }
+#preview[data-theme='github-dark'] .hljs-attr, #preview[data-theme='github-dark'] .hljs-attribute,
+#preview[data-theme='github-dark'] .hljs-literal, #preview[data-theme='github-dark'] .hljs-meta,
+#preview[data-theme='github-dark'] .hljs-number, #preview[data-theme='github-dark'] .hljs-operator,
+#preview[data-theme='github-dark'] .hljs-selector-attr, #preview[data-theme='github-dark'] .hljs-selector-class,
+#preview[data-theme='github-dark'] .hljs-selector-id, #preview[data-theme='github-dark'] .hljs-variable { color: #79c0ff; }
+#preview[data-theme='github-dark'] .hljs-meta .hljs-string, #preview[data-theme='github-dark'] .hljs-regexp,
+#preview[data-theme='github-dark'] .hljs-string { color: #a5d6ff; }
+#preview[data-theme='github-dark'] .hljs-built_in, #preview[data-theme='github-dark'] .hljs-symbol { color: #ffa657; }
+#preview[data-theme='github-dark'] .hljs-code, #preview[data-theme='github-dark'] .hljs-comment,
+#preview[data-theme='github-dark'] .hljs-formula { color: #8b949e; }
+#preview[data-theme='github-dark'] .hljs-name, #preview[data-theme='github-dark'] .hljs-quote,
+#preview[data-theme='github-dark'] .hljs-selector-pseudo, #preview[data-theme='github-dark'] .hljs-selector-tag { color: #7ee787; }
+#preview[data-theme='github-dark'] .hljs-subst { color: #c9d1d9; }
+#preview[data-theme='github-dark'] .hljs-section { color: #1f6feb; font-weight: 700; }
+#preview[data-theme='github-dark'] .hljs-bullet { color: #f2cc60; }
+#preview[data-theme='github-dark'] .hljs-addition { color: #aff5b4; background-color: #033a16; }
+#preview[data-theme='github-dark'] .hljs-deletion { color: #ffdcd7; background-color: #67060c; }

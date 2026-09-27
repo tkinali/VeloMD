@@ -1,0 +1,38 @@
+/* Solarized Light önizleme teması */
+#preview[data-theme='solarized-light'] { background: #fdf6e3; color: #586e75; }
+#preview[data-theme='solarized-light'] h1,
+#preview[data-theme='solarized-light'] h2,
+#preview[data-theme='solarized-light'] h3,
+#preview[data-theme='solarized-light'] h4,
+#preview[data-theme='solarized-light'] h5,
+#preview[data-theme='solarized-light'] h6 { color: #073642; border-color: #eee8d5; }
+#preview[data-theme='solarized-light'] a { color: #268bd2; }
+#preview[data-theme='solarized-light'] blockquote { color: #93a1a1; border-color: #eee8d5; }
+#preview[data-theme='solarized-light'] code { background: #eee8d5; color: #657b83; }
+#preview[data-theme='solarized-light'] pre { background: #f3efdd; }
+#preview[data-theme='solarized-light'] pre code { color: #586e75; }
+#preview[data-theme='solarized-light'] th, #preview[data-theme='solarized-light'] td { border-color: #eee8d5; }
+#preview[data-theme='solarized-light'] th { background: #eee8d5; color: #073642; }
+#preview[data-theme='solarized-light'] tr:nth-child(2n) { background: #f3efdd; }
+#preview[data-theme='solarized-light'] hr { background: #eee8d5; }
+#preview[data-theme='solarized-light'] mark { background: #b58900; color: #fdf6e3; }
+#preview[data-theme='solarized-light'] kbd { background: #eee8d5; border-color: #93a1a1; color: #586e75; }
+
+/* kod renklendirme (solarized light) */
+#preview[data-theme='solarized-light'] .hljs { color: #586e75; background: #f3efdd; }
+#preview[data-theme='solarized-light'] .hljs-comment, #preview[data-theme='solarized-light'] .hljs-quote { color: #93a1a1; font-style: italic; }
+#preview[data-theme='solarized-light'] .hljs-keyword, #preview[data-theme='solarized-light'] .hljs-selector-tag,
+#preview[data-theme='solarized-light'] .hljs-addition { color: #859900; }
+#preview[data-theme='solarized-light'] .hljs-number, #preview[data-theme='solarized-light'] .hljs-string,
+#preview[data-theme='solarized-light'] .hljs-meta .hljs-string, #preview[data-theme='solarized-light'] .hljs-regexp,
+#preview[data-theme='solarized-light'] .hljs-literal { color: #2aa198; }
+#preview[data-theme='solarized-light'] .hljs-title, #preview[data-theme='solarized-light'] .hljs-section,
+#preview[data-theme='solarized-light'] .hljs-name, #preview[data-theme='solarized-light'] .hljs-selector-id,
+#preview[data-theme='solarized-light'] .hljs-selector-class { color: #268bd2; }
+#preview[data-theme='solarized-light'] .hljs-attribute, #preview[data-theme='solarized-light'] .hljs-attr,
+#preview[data-theme='solarized-light'] .hljs-variable, #preview[data-theme='solarized-light'] .hljs-template-variable,
+#preview[data-theme='solarized-light'] .hljs-type, #preview[data-theme='solarized-light'] .hljs-symbol,
+#preview[data-theme='solarized-light'] .hljs-bullet, #preview[data-theme='solarized-light'] .hljs-link,
+#preview[data-theme='solarized-light'] .hljs-selector-attr, #preview[data-theme='solarized-light'] .hljs-selector-pseudo { color: #b58900; }
+#preview[data-theme='solarized-light'] .hljs-doctag, #preview[data-theme='solarized-light'] .hljs-strong { font-weight: bold; }
+#preview[data-theme='solarized-light'] .hljs-deletion { color: #dc322f; }

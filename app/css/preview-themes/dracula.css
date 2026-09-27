@@ -1,0 +1,45 @@
+/* Dracula önizleme teması */
+#preview[data-theme='dracula'] { background: #282a36; color: #f8f8f2; }
+#preview[data-theme='dracula'] h1,
+#preview[data-theme='dracula'] h2,
+#preview[data-theme='dracula'] h3,
+#preview[data-theme='dracula'] h4,
+#preview[data-theme='dracula'] h5,
+#preview[data-theme='dracula'] h6 { color: #bd93f9; border-color: #44475a; }
+#preview[data-theme='dracula'] h1, #preview[data-theme='dracula'] h2 { color: #ff79c6; }
+#preview[data-theme='dracula'] a { color: #8be9fd; }
+#preview[data-theme='dracula'] blockquote { color: #a2a8c5; border-color: #6272a4; }
+#preview[data-theme='dracula'] code { background: #21222c; color: #ff79c6; }
+#preview[data-theme='dracula'] pre { background: #21222c; }
+#preview[data-theme='dracula'] pre code { color: #f8f8f2; }
+#preview[data-theme='dracula'] th, #preview[data-theme='dracula'] td { border-color: #44475a; }
+#preview[data-theme='dracula'] th { background: #21222c; color: #bd93f9; }
+#preview[data-theme='dracula'] tr:nth-child(2n) { background: rgba(255, 255, 255, 0.03); }
+#preview[data-theme='dracula'] hr { background: #44475a; }
+#preview[data-theme='dracula'] mark { background: #f1fa8c; color: #282a36; }
+#preview[data-theme='dracula'] kbd { background: #21222c; border-color: #6272a4; color: #50fa7b; }
+
+/* kod renklendirme (dracula) */
+#preview[data-theme='dracula'] .hljs { color: #f8f8f2; background: #21222c; }
+#preview[data-theme='dracula'] .hljs-comment, #preview[data-theme='dracula'] .hljs-quote { color: #6272a4; }
+#preview[data-theme='dracula'] .hljs-keyword, #preview[data-theme='dracula'] .hljs-selector-tag,
+#preview[data-theme='dracula'] .hljs-literal, #preview[data-theme='dracula'] .hljs-section,
+#preview[data-theme='dracula'] .hljs-doctag, #preview[data-theme='dracula'] .hljs-type,
+#preview[data-theme='dracula'] .hljs-name, #preview[data-theme='dracula'] .hljs-strong { color: #ff79c6; }
+#preview[data-theme='dracula'] .hljs-string, #preview[data-theme='dracula'] .hljs-meta .hljs-string,
+#preview[data-theme='dracula'] .hljs-regexp { color: #f1fa8c; }
+#preview[data-theme='dracula'] .hljs-number, #preview[data-theme='dracula'] .hljs-symbol,
+#preview[data-theme='dracula'] .hljs-bullet, #preview[data-theme='dracula'] .hljs-link,
+#preview[data-theme='dracula'] .hljs-meta, #preview[data-theme='dracula'] .hljs-selector-id,
+#preview[data-theme='dracula'] .hljs-selector-attr, #preview[data-theme='dracula'] .hljs-selector-pseudo,
+#preview[data-theme='dracula'] .hljs-template-variable, #preview[data-theme='dracula'] .hljs-variable,
+#preview[data-theme='dracula'] .hljs-attr { color: #bd93f9; }
+#preview[data-theme='dracula'] .hljs-title, #preview[data-theme='dracula'] .hljs-title.class_,
+#preview[data-theme='dracula'] .hljs-title.class_.inherited__,
+#preview[data-theme='dracula'] .hljs-title.function_ { color: #50fa7b; }
+#preview[data-theme='dracula'] .hljs-built_in, #preview[data-theme='dracula'] .hljs-code,
+#preview[data-theme='dracula'] .hljs-selector-class { color: #8be9fd; }
+#preview[data-theme='dracula'] .hljs-tag { color: #ff79c6; }
+#preview[data-theme='dracula'] .hljs-subst { color: #f8f8f2; }
+#preview[data-theme='dracula'] .hljs-addition { color: #50fa7b; background: rgba(80, 250, 123, 0.12); }
+#preview[data-theme='dracula'] .hljs-deletion { color: #ff5555; background: rgba(255, 85, 85, 0.12); }

@@ -1,0 +1,39 @@
+/* Solarized Dark önizleme teması */
+#preview[data-theme='solarized-dark'] { background: #002b36; color: #93a1a1; }
+#preview[data-theme='solarized-dark'] h1,
+#preview[data-theme='solarized-dark'] h2,
+#preview[data-theme='solarized-dark'] h3,
+#preview[data-theme='solarized-dark'] h4,
+#preview[data-theme='solarized-dark'] h5,
+#preview[data-theme='solarized-dark'] h6 { color: #eee8d5; border-color: #073642; }
+#preview[data-theme='solarized-dark'] h1 a, #preview[data-theme='solarized-dark'] h2 a { color: inherit; }
+#preview[data-theme='solarized-dark'] a { color: #268bd2; }
+#preview[data-theme='solarized-dark'] blockquote { color: #657b83; border-color: #586e75; }
+#preview[data-theme='solarized-dark'] code { background: #073642; color: #93a1a1; }
+#preview[data-theme='solarized-dark'] pre { background: #073642; }
+#preview[data-theme='solarized-dark'] pre code { color: #93a1a1; }
+#preview[data-theme='solarized-dark'] th, #preview[data-theme='solarized-dark'] td { border-color: #073642; }
+#preview[data-theme='solarized-dark'] th { background: #093642; color: #eee8d5; }
+#preview[data-theme='solarized-dark'] tr:nth-child(2n) { background: #07364266; }
+#preview[data-theme='solarized-dark'] hr { background: #073642; }
+#preview[data-theme='solarized-dark'] mark { background: #b58900; color: #002b36; }
+#preview[data-theme='solarized-dark'] kbd { background: #073642; border-color: #586e75; color: #b58900; }
+
+/* kod renklendirme (solarized dark) */
+#preview[data-theme='solarized-dark'] .hljs { color: #93a1a1; background: #073642; }
+#preview[data-theme='solarized-dark'] .hljs-comment, #preview[data-theme='solarized-dark'] .hljs-quote { color: #586e75; font-style: italic; }
+#preview[data-theme='solarized-dark'] .hljs-keyword, #preview[data-theme='solarized-dark'] .hljs-selector-tag,
+#preview[data-theme='solarized-dark'] .hljs-addition { color: #859900; }
+#preview[data-theme='solarized-dark'] .hljs-number, #preview[data-theme='solarized-dark'] .hljs-string,
+#preview[data-theme='solarized-dark'] .hljs-meta .hljs-string, #preview[data-theme='solarized-dark'] .hljs-regexp,
+#preview[data-theme='solarized-dark'] .hljs-literal { color: #2aa198; }
+#preview[data-theme='solarized-dark'] .hljs-title, #preview[data-theme='solarized-dark'] .hljs-section,
+#preview[data-theme='solarized-dark'] .hljs-name, #preview[data-theme='solarized-dark'] .hljs-selector-id,
+#preview[data-theme='solarized-dark'] .hljs-selector-class { color: #268bd2; }
+#preview[data-theme='solarized-dark'] .hljs-attribute, #preview[data-theme='solarized-dark'] .hljs-attr,
+#preview[data-theme='solarized-dark'] .hljs-variable, #preview[data-theme='solarized-dark'] .hljs-template-variable,
+#preview[data-theme='solarized-dark'] .hljs-type, #preview[data-theme='solarized-dark'] .hljs-symbol,
+#preview[data-theme='solarized-dark'] .hljs-bullet, #preview[data-theme='solarized-dark'] .hljs-link,
+#preview[data-theme='solarized-dark'] .hljs-selector-attr, #preview[data-theme='solarized-dark'] .hljs-selector-pseudo { color: #b58900; }
+#preview[data-theme='solarized-dark'] .hljs-doctag, #preview[data-theme='solarized-dark'] .hljs-strong { font-weight: bold; }
+#preview[data-theme='solarized-dark'] .hljs-deletion { color: #dc322f; }
