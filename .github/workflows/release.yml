@@ -26,7 +26,7 @@ jobs:
       - name: Build ${{ matrix.name }}
         run: |
           VER="$(cat VERSION | tr -d '[:space:]')"
-          mkdir -p stage/usr/share/velomd stage/usr/bin \
+          mkdir -p dist stage/usr/share/velomd stage/usr/bin \
                    stage/usr/share/icons/hicolor/512x512/apps \
                    stage/usr/share/applications
           cp -r main.py app logo.png VERSION stage/usr/share/velomd/
@@ -58,8 +58,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: velomd-${{ matrix.name }}
-          path: dist/*.rpm
-          if-no-files-found: ignore
+          path: dist/*
+          if-no-files-found: error
 
   appimage:
     runs-on: ubuntu-latest
