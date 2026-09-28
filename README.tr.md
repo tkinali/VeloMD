@@ -26,7 +26,8 @@ kalır, imleci bir satıra götürdüğünüzde karşılığı önizlemede aydı
 
 Bilinçli olarak küçüktür. Arayüzün tamamı, ~600 KB'lık yerleştirilmiş (vendored) HTML/CSS/JS
 (CodeMirror, markdown-it, highlight.js) etrafında tek bir GTK4 + WebKit2GTK penceresidir —
-Electron yok, Node yok, pip bağımlılığı yok ve tamamen çevrimdışı çalışır.
+Electron yok, Node yok, pip bağımlılığı yok ve tamamen çevrimdışı çalışır. Tasarım gereği
+Linux-native'dır: bu yığın onu bu kadar küçük tutan şeydir; Windows veya macOS sürümü yoktur.
 
 ## Özellikler
 

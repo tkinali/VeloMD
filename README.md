@@ -26,7 +26,8 @@ same block; put your cursor on a line and its counterpart lights up in the previ
 
 It is deliberately small. The whole interface is a single GTK4 + WebKit2GTK window around ~600 KB of
 vendored HTML/CSS/JS (CodeMirror, markdown-it, highlight.js) — no Electron, no Node, no pip
-dependencies, and it works fully offline.
+dependencies, and it works fully offline. It is Linux-native by design: that stack is what keeps it
+this small, and there are no Windows or macOS builds.
 
 ## Features
 
