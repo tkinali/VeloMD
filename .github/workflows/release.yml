@@ -1,0 +1,96 @@
+name: release
+
+# v* etiketi itildiğinde RPM + DEB + AppImage üretir ve GitHub Release'e yükler.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  packages:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - name: rpm
+            image: fedora:latest
+          - name: deb
+            image: debian:12
+    container: ${{ matrix.image }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build ${{ matrix.name }}
+        run: |
+          VER="$(cat VERSION | tr -d '[:space:]')"
+          mkdir -p stage/usr/share/velomd stage/usr/bin \
+                   stage/usr/share/icons/hicolor/512x512/apps \
+                   stage/usr/share/applications
+          cp -r main.py app logo.png VERSION stage/usr/share/velomd/
+          cp packaging/rpm/velomd.desktop \
+             stage/usr/share/applications/com.velomd.VeloMD.desktop
+          cp logo.png stage/usr/share/icons/hicolor/512x512/apps/com.velomd.VeloMD.png
+
+          if [ "${{ matrix.name }}" = rpm ]; then
+            printf '#!/bin/sh\nexec python3 /usr/share/velomd/main.py "$@"\n' > stage/usr/bin/velomd
+            chmod 755 stage/usr/bin/velomd
+            dnf install -y -q rpm-build
+            mkdir -p dist/_rpm/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
+            tar -czf dist/_rpm/SOURCES/velomd-${VER}.tar.gz \
+                --transform "s,^,velomd-${VER}/," main.py app logo.png VERSION packaging/rpm/velomd.desktop
+            cp packaging/rpm/velomd.spec dist/_rpm/SPECS/
+            rpmbuild -bb --define "_topdir $PWD/dist/_rpm" \
+                     --define "VERSION ${VER}" --define "dist .fc" \
+                     dist/_rpm/SPECS/velomd.spec
+            cp dist/_rpm/RPMS/noarch/*.rpm dist/
+          else
+            mkdir -p stage/DEBIAN
+            sed "s/VERSION_PLACEHOLDER/${VER}/" packaging/deb/control > stage/DEBIAN/control
+            printf '#!/bin/sh\nexec python3 /usr/share/velomd/main.py "$@"\n' > stage/usr/bin/velomd
+            chmod 755 stage/usr/bin/velomd
+            dpkg-deb --build --root-owner-group stage "dist/velomd_${VER}_all.deb"
+          fi
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: velomd-${{ matrix.name }}
+          path: dist/*.rpm
+          if-no-files-found: ignore
+
+  appimage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build AppImage
+        run: ./packaging/build-appimage.sh
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: velomd-appimage
+          path: dist/*.AppImage
+
+  release:
+    needs: [packages, appimage]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*.rpm
+            dist/*.deb
+            dist/*.AppImage
+          generate_release_notes: true

@@ -1,0 +1,15 @@
+[Desktop Entry]
+Type=Application
+Name=VeloMD
+GenericName=Markdown Editor
+GenericName[tr]=Markdown Editörü
+Comment=Lightweight markdown editor with live preview
+Comment[tr]=Hafif, canlı önizlemeli Markdown editörü
+Exec=velomd %f
+Icon=com.velomd.VeloMD
+Terminal=false
+Categories=TextEditor;Utility;
+Keywords=markdown;editor;text;md;
+MimeType=text/markdown;text/x-markdown;
+StartupNotify=true
+StartupWMClass=com.velomd.VeloMD

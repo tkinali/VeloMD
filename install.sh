@@ -237,7 +237,7 @@ install_dependencies() {
     # Preferred GTK4+WebKit 6.0 set, falling back to GTK3+WebKit 4.1
     local sets
     case "$pkg_mgr" in
-        dnf)    sets=("python3-gobject gtk4 webkit2gtk6.0 fontconfig"
+        dnf)    sets=("python3-gobject gtk4 webkitgtk6.0 fontconfig"
                       "python3-gobject gtk3 webkit2gtk4.1 fontconfig") ;;
         apt)    sets=("python3-gi gir1.2-gtk-4.0 gir1.2-webkit-6.0 fontconfig"
                       "python3-gi gir1.2-gtk-3.0 gir1.2-webkit2-4.1 fontconfig") ;;

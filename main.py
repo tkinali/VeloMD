@@ -48,6 +48,17 @@ except (ValueError, ImportError):
 APP_NAME = 'VeloMD'
 APP_ID = 'com.velomd.VeloMD'
 APP_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
+def _read_version():
+    try:
+        with open(os.path.join(APP_DIR, 'VERSION'), encoding='utf-8') as fh:
+            return fh.read().strip() or 'dev'
+    except OSError:
+        return 'dev'
+
+
+APP_VERSION = _read_version()
 CONFIG_DIR = os.path.join(GLib.get_user_config_dir(), 'velomd')
 SETTINGS_PATH = os.path.join(CONFIG_DIR, 'settings.json')
 SESSION_PATH = os.path.join(CONFIG_DIR, 'session.json')

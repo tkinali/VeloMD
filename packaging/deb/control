@@ -1,0 +1,14 @@
+Package: velomd
+Version: VERSION_PLACEHOLDER
+Architecture: all
+Section: editors
+Priority: optional
+Maintainer: tkinali <tkinali@users.noreply.github.com>
+Depends: python3, python3-gi, gir1.2-webkit-6.0 | gir1.2-webkit2-4.1, gir1.2-gtk-4.0 | gir1.2-gtk-3.0, fontconfig
+Homepage: https://github.com/tkinali/VeloMD
+Description: Featherweight Markdown editor with live split-pane preview
+ VeloMD is a featherweight Markdown editor for Linux: source on the
+ left, live preview on the right. Tabs with hot-exit session restore,
+ find & replace on both panes, bilingual UI (Turkish/English),
+ light/dark/system themes and six preview themes. Built on GTK4 +
+ WebKit2GTK (~600 KB of vendored JS, no Electron).

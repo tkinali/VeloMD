@@ -92,7 +92,7 @@ Dağıtıma göre paket adları:
 
 | Dağıtım | Paketler |
 |---------|----------|
-| Fedora | `sudo dnf install python3-gobject gtk4 webkit2gtk6.0 fontconfig` |
+| Fedora | `sudo dnf install python3-gobject gtk4 webkitgtk6.0 fontconfig` |
 | Ubuntu ≥ 24.10 / Debian ≥ 13 | `sudo apt install python3-gi gir1.2-gtk-4.0 gir1.2-webkit-6.0 fontconfig` |
 | Ubuntu 22.04–24.04 LTS | `sudo apt install python3-gi gir1.2-gtk-3.0 gir1.2-webkit2-4.1 fontconfig` |
 | Arch | `sudo pacman -S python-gobject gtk4 webkit2gtk-5.0 fontconfig` |
@@ -100,6 +100,21 @@ Dağıtıma göre paket adları:
 
 Deposunda yalnızca WebKit 4.1 olan dağıtımlarda o paketleri kurun — VeloMD otomatik olarak
 GTK3 kipine geçer.
+
+### Hazır paketler
+
+[Releases sayfasında](https://github.com/tkinali/VeloMD/releases) her sürüm için bir RPM,
+bir DEB ve bir AppImage bulunur:
+
+| Paket | Kurulum |
+|-------|---------|
+| `velomd-<sürüm>.rpm` | Fedora: `sudo dnf install velomd-*.rpm` |
+| `velomd_<sürüm>_all.deb` | Debian/Ubuntu/Mint: `sudo apt install velomd_*_all.deb` |
+| `VeloMD-<sürüm>.x86_64.AppImage` | Her dağıtım: `chmod +x` ile çalıştır — GTK/WebKit'i sistemin kullanır |
+
+Paketlar yalnızca VeloMD'nin kendisini içerir (~1 MB, mimariden bağımsız); GTK, WebKit ve
+fontconfig dağıtımının deposundan otomatik gelir. Bir sürüm etiketlemek
+(`git tag v1.0.0 && git push --tags`) CI'nın üçünü de derleyip yayınlamasını sağlar.
 
 ## Kullanım
 

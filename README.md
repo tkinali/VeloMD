@@ -92,7 +92,7 @@ Manual dependency names per distribution are listed in [README.tr.md](README.tr.
 
 | Distribution | Packages |
 |--------------|----------|
-| Fedora | `sudo dnf install python3-gobject gtk4 webkit2gtk6.0 fontconfig` |
+| Fedora | `sudo dnf install python3-gobject gtk4 webkitgtk6.0 fontconfig` |
 | Ubuntu ≥ 24.10 / Debian ≥ 13 | `sudo apt install python3-gi gir1.2-gtk-4.0 gir1.2-webkit-6.0 fontconfig` |
 | Ubuntu 22.04–24.04 LTS | `sudo apt install python3-gi gir1.2-gtk-3.0 gir1.2-webkit2-4.1 fontconfig` |
 | Arch | `sudo pacman -S python-gobject gtk4 webkit2gtk-5.0 fontconfig` |
@@ -100,6 +100,21 @@ Manual dependency names per distribution are listed in [README.tr.md](README.tr.
 
 On distributions whose repos carry only WebKit 4.1, install those packages instead — VeloMD
 automatically runs in its GTK3 mode.
+
+### Prebuilt packages
+
+The [Releases page](https://github.com/tkinali/VeloMD/releases) carries an RPM, a DEB and an
+AppImage for each version:
+
+| Package | Install |
+|---------|---------|
+| `velomd-<ver>.rpm` | Fedora: `sudo dnf install velomd-*.rpm` |
+| `velomd_<ver>_all.deb` | Debian/Ubuntu/Mint: `sudo apt install velomd_*_all.deb` |
+| `VeloMD-<ver>.x86_64.AppImage` | Any distro: `chmod +x` and run — uses your system's GTK/WebKit |
+
+The packages only contain VeloMD itself (~1 MB, architecture-independent); GTK, WebKit and
+fontconfig come from your distribution's repositories automatically. Tagging a version
+(`git tag v1.0.0 && git push --tags`) makes the CI build and publish all three.
 
 ## Usage
 
