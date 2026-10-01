@@ -224,6 +224,46 @@ class BridgeApi:
         write_json(SESSION_PATH, session)
         return {'ok': True}
 
+    # ---- PDF dışa aktarma ----------------------------------------------
+
+    def api_export_pdf(self, suggested_name, _async_id):
+        """Önizlemeyi PDF olarak kaydet: dosya penceresi + WebKit yazdırma
+        (print CSS sayesinde yalnızca önizleme, renkler korunur)."""
+        dlg = Gtk.FileDialog()
+        dlg.set_title('PDF')
+        filt = Gtk.FileFilter()
+        filt.set_name('PDF')
+        filt.add_pattern('*.pdf')
+        store = Gio.ListStore.new(Gtk.FileFilter)
+        store.append(filt)
+        dlg.set_filters(store)
+        if suggested_name:
+            dlg.set_initial_name(suggested_name)
+        last_dir = self._last_dir()
+        if last_dir:
+            try:
+                dlg.set_initial_folder(Gio.File.new_for_path(last_dir))
+            except Exception:
+                pass
+
+        def cb(d, res, *user_data):
+            try:
+                file = d.save_finish(res)
+                path = file.get_path() if file else None
+            except GLib.Error:
+                path = None
+            if not path:
+                self.app.resolve_async(_async_id, {'ok': True, 'path': None})
+                return
+            if not path.lower().endswith('.pdf'):
+                path += '.pdf'
+            self._remember_dir(path)
+            ok = self.app.export_pdf(path)
+            self.app.resolve_async(_async_id, {'ok': ok, 'path': path if ok else None})
+
+        dlg.save(self.app.window, None, cb)
+        return {'__async__': True}
+
     # ---- native dosya pencereleri (asenkron) ---------------------------
 
     def api_open_dialog(self, _async_id):
@@ -342,17 +382,36 @@ class BridgeApi:
 
 class VeloMDApp(Gtk.Application):
     def __init__(self):
-        super().__init__(application_id=APP_ID)
+        # HANDLES_COMMAND_LINE: uygulama açıkken "velomd dosya.md" çağrısı
+        # dosyayı çalışan örnekte yeni sekme olarak açar
+        super().__init__(application_id=APP_ID,
+                         flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE)
         self.window = None
         self.webview = None
         self.settings = None
         self.quitting = False
+        self._cli_arg = None
 
     # ---- başlangıç ------------------------------------------------------
+
+    def do_command_line(self, command_line):  # noqa: N802
+        args = command_line.get_arguments()[1:]
+        for a in args:
+            if a and not a.startswith('-'):
+                self._cli_arg = a
+                break
+        self.activate()
+        return 0
 
     def do_activate(self):  # noqa: N802
         if self.window is not None:
             self.window.present()
+            # ikinci bir "velomd dosya.md" çağrısı: çalışan pencerede aç
+            if getattr(self, '_cli_arg', None):
+                arg = os.path.abspath(self._cli_arg)
+                self._cli_arg = None
+                self.eval_js('window.__openPathRemote && window.__openPathRemote(%s);'
+                             % json.dumps(arg))
             return
 
         self.settings = dict_merge(DEFAULT_SETTINGS, read_json(SETTINGS_PATH, {}))
@@ -374,7 +433,16 @@ class VeloMDApp(Gtk.Application):
         ucm.register_script_message_handler('velomd')
         ucm.connect('script-message-received::velomd', self.on_js_message)
 
-        self.webview = WebKit.WebView(user_content_manager=ucm)
+        # ephemeral: disk önbelleği yok (arayüz güncellemeleri anında görür,
+        # uygulama da diskte iz bırakmaz)
+        try:
+            wdm = WebKit.WebsiteDataManager.new_ephemeral()
+            self.webview = WebKit.WebView(
+                website_data_manager=wdm,
+                user_content_manager=ucm,
+            )
+        except (AttributeError, TypeError):
+            self.webview = WebKit.WebView(user_content_manager=ucm)
         ws = self.webview.get_settings()
         ws.set_enable_developer_extras(True)
         ws.set_enable_write_console_messages_to_stdout(True)
@@ -457,9 +525,29 @@ class VeloMDApp(Gtk.Application):
         except Exception:
             pass
 
+    def export_pdf(self, path):
+        """WebView'in geçerli sayfasını print CSS ile PDF dosyasına yaz."""
+        try:
+            po = WebKit.PrintOperation.new(self.webview)
+            settings = Gtk.PrintSettings.new()
+            settings.set_printer('Print to File')
+            settings.set(Gtk.PRINT_SETTINGS_OUTPUT_URI, 'file://' + path)
+            po.set_print_settings(settings)
+            po.print_()
+            return True
+        except Exception as exc:
+            print('PDF dışa aktarma hatası:', exc, file=sys.stderr)
+            return False
+
     def on_load_changed(self, view, event):
         if event == WebKit.LoadEvent.FINISHED:
-            arg = sys.argv[1] if len(sys.argv) > 1 else ''
+            arg = getattr(self, '_cli_arg', None)
+            self._cli_arg = None
+            if not arg and len(sys.argv) > 1:
+                for a in sys.argv[1:]:
+                    if a and not a.startswith('-'):
+                        arg = a
+                        break
             arg = os.path.abspath(arg) if arg else None
             session = read_json(SESSION_PATH, None)
             self.eval_js('window.__velomdReady && window.__velomdReady(%s, %s);'
@@ -546,10 +634,8 @@ def dict_merge(base, override):
 
 
 def main():
-    # Dosya argümanlarını GApplication'a değil kendimize bırakıyoruz
-    # (sys.argv[1] üzerinde okunur); aksi halde "can not open files" ile çıkar.
     app = VeloMDApp()
-    app.run([])
+    app.run(sys.argv)
 
 
 if __name__ == '__main__':

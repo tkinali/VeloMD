@@ -138,6 +138,7 @@ velomd NOTES.md
 | `Ctrl+B` / `Ctrl+I` / `Ctrl+K` | Bold / italic / link |
 | `Ctrl+=` / `Ctrl+-` / `Ctrl+0` | Font size ± / reset |
 | `Ctrl+,` | Settings |
+| `Ctrl+P` | Save the preview as PDF (syntax colors preserved) |
 
 ### Settings
 

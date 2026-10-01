@@ -138,6 +138,7 @@ velomd NOTLAR.md
 | `Ctrl+B` / `Ctrl+I` / `Ctrl+K` | Kalın / italik / bağlantı |
 | `Ctrl+=` / `Ctrl+-` / `Ctrl+0` | Font boyutu ± / sıfırla |
 | `Ctrl+,` | Ayarlar |
+| `Ctrl+P` | Önizlemeyi PDF olarak kaydet (kod renkleri korunur) |
 
 ### Ayarlar
 

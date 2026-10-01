@@ -297,6 +297,21 @@
   }
 
   /* ------------------------------------------------------------
+     PDF olarak kaydet
+     ------------------------------------------------------------ */
+  async function exportPdf() {
+    const tab = tabs().current();
+    const suggested = tab ? tab.name.replace(/\.(md|markdown|txt)$/i, '.pdf') : 'velomd.pdf';
+    const res = await bridge().callAsync('export_pdf', { suggested_name: suggested });
+    if (res && res.ok && res.path) {
+      const st = $('st-save');
+      st.textContent = '⤓ PDF: ' + res.path.split('/').pop();
+      st.className = 'saved';
+      setTimeout(function () { updateStatus(); }, 2500);
+    }
+  }
+
+  /* ------------------------------------------------------------
      Önizleme görünürlüğü (toolbar düğmesi + ayar)
      ------------------------------------------------------------ */
   function applyPreviewVisibility() {
@@ -577,6 +592,9 @@
       } else if (k === 'f' && ev.shiftKey) {
         ev.preventDefault();
         VeloMD.edSearch.open({ focusReplace: true });
+      } else if (k === 'p') {
+        ev.preventDefault();
+        exportPdf();
       } else if (k === 's' && ev.shiftKey) { ev.preventDefault(); saveTabAs(tabs().current()); }
       else if (k === 's') { ev.preventDefault(); saveTab(tabs().current()); }
       else if (k === 'o') { ev.preventDefault(); openFile(); }
@@ -686,6 +704,7 @@
       VeloMD.settings.update({ showPreview: S().showPreview === false });
     });
     // önizlemede bir bloğa tıklayınca editörde karşılığına git + vurgula
+    // (odak önizlemede kalır: Ctrl+F hâlâ önizleme aramasını açar)
     $('preview-pane').addEventListener('click', function (ev) {
       if (ev.target.closest('a')) return; // bağlantılar tarayıcıya gider
       const block = ev.target.closest('[data-source-line]');
@@ -694,8 +713,9 @@
       cm.setCursor({ line: line, ch: 0 });
       if (VeloMD.sync) VeloMD.sync.suppress(600);
       cm.scrollIntoView({ line: line, ch: 0 }, 40);
-      cm.focus();
     });
+    // PDF olarak kaydet (düğme + Ctrl+P)
+    $('btn-pdf').addEventListener('click', exportPdf);
     document.querySelectorAll('.tb-btn[data-md]').forEach(function (btn) {
       btn.addEventListener('click', function () { editor().applyAction(btn.dataset.md); });
     });
@@ -715,6 +735,12 @@
     start(clarg || null, session || null).catch(function (err) {
       console.error('VeloMD başlatma hatası:', err);
     });
+  };
+
+  // çalışan örneğe gelen "velomd dosya.md" çağrısı
+  window.__openPathRemote = function (path) {
+    if (!path) return;
+    openPath(path);
   };
 
   window.VeloMD = window.VeloMD || {};

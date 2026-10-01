@@ -27,6 +27,7 @@
       'tb.image': 'Resim',
       'tb.hr': 'Yatay çizgi',
       'tb.preview': 'Önizlemeyi göster/gizle',
+      'tb.pdf': 'Önizlemeyi PDF olarak kaydet',
       'lang.none': 'Dilsiz',
 
       'st.cursor': 'Satır %s, Sütun %s',
@@ -121,6 +122,7 @@
       'tb.image': 'Image',
       'tb.hr': 'Horizontal rule',
       'tb.preview': 'Toggle preview',
+      'tb.pdf': 'Save preview as PDF',
       'lang.none': 'Plain',
 
       'st.cursor': 'Line %s, Column %s',

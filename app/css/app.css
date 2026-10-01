@@ -914,3 +914,25 @@ input[type="range"]::-webkit-slider-thumb {
   color: #1b1000;
   border-radius: 2px;
 }
+
+/* ============================================================
+   PDF dışa aktarma — WebKit yazdırma motoruna özel kurallar
+   ============================================================ */
+#preview, #preview * {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact; /* kod bloğu renkleri PDF'te korunsun */
+}
+
+@media print {
+  body { display: block !important; overflow: visible !important; }
+  #titlebar, #toolbar, #statusbar,
+  #editor-pane, #divider, #pv-search, #ed-search { display: none !important; }
+  #split { display: block !important; }
+  #preview-pane { overflow: visible !important; background: #fff !important; }
+  #preview {
+    max-width: 100%;
+    padding: 0;
+    color: #1f2328;
+    background: #ffffff;
+  }
+}
