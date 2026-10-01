@@ -191,6 +191,17 @@
     } catch (err) { /* eşleşme yoksa sorun değil */ }
   }
 
+  /* PDF dışa aktarımı sırasında önizlemeyi geçici olarak light temaya alır;
+     id=null ise kalıcı ayara döner (state'e dokunmadan yalnız DOM'a uygular). */
+  function setPreviewDomTheme(id) {
+    const pv = id || resolvedPreviewTheme();
+    document.querySelectorAll('link[data-theme-css]').forEach(function (link) {
+      link.disabled = link.dataset.themeCss !== pv;
+    });
+    const preview = document.getElementById('preview');
+    if (preview) preview.dataset.theme = pv;
+  }
+
   window.VeloMD = window.VeloMD || {};
   VeloMD.settings = {
     state,
@@ -204,6 +215,7 @@
     migrate,
     uiDark,
     resolvedPreviewTheme,
+    setPreviewDomTheme,
     watchSystemTheme,
   };
 })();

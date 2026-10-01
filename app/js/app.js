@@ -297,17 +297,23 @@
   }
 
   /* ------------------------------------------------------------
-     PDF olarak kaydet
+     PDF olarak kaydet — daima açık (light) görünümde
      ------------------------------------------------------------ */
   async function exportPdf() {
     const tab = tabs().current();
     const suggested = tab ? tab.name.replace(/\.(md|markdown|txt)$/i, '.pdf') : 'velomd.pdf';
-    const res = await bridge().callAsync('export_pdf', { suggested_name: suggested });
-    if (res && res.ok && res.path) {
-      const st = $('st-save');
-      st.textContent = '⤓ PDF: ' + res.path.split('/').pop();
-      st.className = 'saved';
-      setTimeout(function () { updateStatus(); }, 2500);
+    // PDF her zaman beyaz sayfa olsun: yazdırma bitene kadar light tema
+    VeloMD.settings.setPreviewDomTheme('github-light');
+    try {
+      const res = await bridge().callAsync('export_pdf', { suggested_name: suggested });
+      if (res && res.ok && res.path) {
+        const st = $('st-save');
+        st.textContent = '⤓ PDF: ' + res.path.split('/').pop();
+        st.className = 'saved';
+        setTimeout(function () { updateStatus(); }, 2500);
+      }
+    } finally {
+      VeloMD.settings.setPreviewDomTheme(null);
     }
   }
 

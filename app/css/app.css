@@ -928,11 +928,11 @@ input[type="range"]::-webkit-slider-thumb {
   #titlebar, #toolbar, #statusbar,
   #editor-pane, #divider, #pv-search, #ed-search { display: none !important; }
   #split { display: block !important; }
-  #preview-pane { overflow: visible !important; background: #fff !important; }
-  #preview {
+  #preview-pane { overflow: visible !important; background: #ffffff !important; }
+  #preview[data-theme] {
     max-width: 100%;
     padding: 0;
-    color: #1f2328;
-    background: #ffffff;
+    background: #ffffff !important;
+    color: #1f2328 !important;
   }
 }

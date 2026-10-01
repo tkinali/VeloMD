@@ -258,8 +258,7 @@ class BridgeApi:
             if not path.lower().endswith('.pdf'):
                 path += '.pdf'
             self._remember_dir(path)
-            ok = self.app.export_pdf(path)
-            self.app.resolve_async(_async_id, {'ok': ok, 'path': path if ok else None})
+            self.app.export_pdf(path, async_id)
 
         dlg.save(self.app.window, None, cb)
         return {'__async__': True}
@@ -525,18 +524,51 @@ class VeloMDApp(Gtk.Application):
         except Exception:
             pass
 
-    def export_pdf(self, path):
-        """WebView'in geçerli sayfasını print CSS ile PDF dosyasına yaz."""
+    def export_pdf(self, path, async_id=None):
+        """WebView'in geçerli sayfasını print CSS ile PDF dosyasına yaz.
+        async_id verilirse 'finished' sinyaline kadar cevap geciktirilir
+        (JS arayüz o ana kadar light temayı korur)."""
         try:
             po = WebKit.PrintOperation.new(self.webview)
             settings = Gtk.PrintSettings.new()
             settings.set_printer('Print to File')
             settings.set(Gtk.PRINT_SETTINGS_OUTPUT_URI, 'file://' + path)
             po.set_print_settings(settings)
+
+            if async_id is None:
+                po.print_()
+                return True
+
+            state = {'done': False}
+
+            def finished(*_a):
+                if state['done']:
+                    return
+                state['done'] = True
+                self.api.resolve_async(async_id, {'ok': True, 'path': path})
+
+            def failed(*_a):
+                if state['done']:
+                    return
+                state['done'] = True
+                self.api.resolve_async(async_id, {'ok': False, 'error': 'failed'})
+
+            po.connect('finished', finished)
+            po.connect('failed', failed)
             po.print_()
+
+            def timeout():
+                if not state['done']:
+                    state['done'] = True
+                    self.api.resolve_async(async_id, {'ok': True, 'path': path})
+                return False
+
+            GLib.timeout_add_seconds(30, timeout)
             return True
         except Exception as exc:
             print('PDF dışa aktarma hatası:', exc, file=sys.stderr)
+            if async_id is not None:
+                self.api.resolve_async(async_id, {'ok': False, 'error': str(exc)})
             return False
 
     def on_load_changed(self, view, event):
