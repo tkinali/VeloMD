@@ -46,7 +46,8 @@ except (ValueError, ImportError):
     raise SystemExit(1)
 
 APP_NAME = 'VeloMD'
-APP_ID = 'com.velomd.VeloMD'
+# Test/izole çalıştırma için üstüne yazılabilir; normal kullanıcıya etkisi yok.
+APP_ID = os.environ.get('VELOMD_APP_ID') or 'com.velomd.VeloMD'
 APP_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
@@ -381,6 +382,9 @@ class VeloMDApp(Gtk.Application):
         self.webview.connect('load-changed', self.on_load_changed)
         # document.title → GTK pencere başlığı
         self.webview.connect('notify::title', lambda v, _p: win.set_title(v.get_title() or APP_NAME))
+        # linkler uygulama içinde açılmasın: gezinmeyi engelle, sistem
+        # tarayıcısına yönlendir
+        self.webview.connect('decide-policy', self.on_decide_policy)
 
         if GTK_MAJOR >= 4:
             win.set_child(self.webview)
@@ -416,6 +420,42 @@ class VeloMDApp(Gtk.Application):
             return
         self.eval_js('window.__systemThemeChanged && window.__systemThemeChanged(%s);'
                      % ('true' if dark else 'false'))
+
+    def on_decide_policy(self, view, decision, decision_type):
+        """Önizlemedeki bağlantı tıklamalarını yakalar: gezinmeyi reddedip
+        adresi sistem tarayıcısında açar (geri dönülemez bir uygulama içi
+        sayfa değişimi yaşanmasın)."""
+        try:
+            nav_types = (WebKit.PolicyDecisionType.NAVIGATION_ACTION,
+                         WebKit.PolicyDecisionType.NEW_WINDOW_ACTION)
+            if decision_type not in nav_types:
+                return False
+            action = decision.get_navigation_action()
+            if not action:
+                return False
+            if action.get_navigation_type() != WebKit.NavigationType.LINK_CLICKED:
+                return False
+            if action.get_mouse_button() not in (0, 1):
+                return False  # orta tık vb.: WebKit'in kendi davranışına bırak
+            uri = action.get_request().get_uri()
+            decision.ignore()
+            if uri and not uri.startswith(('file://', 'about:')):
+                self.open_external(uri)
+        except Exception:
+            pass
+        return False
+
+    def open_external(self, uri):
+        try:
+            Gio.AppInfo.launch_default_for_uri(uri, None)
+            return
+        except Exception:
+            pass
+        try:
+            subprocess.Popen(['xdg-open', uri],
+                             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        except Exception:
+            pass
 
     def on_load_changed(self, view, event):
         if event == WebKit.LoadEvent.FINISHED:

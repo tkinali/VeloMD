@@ -685,6 +685,17 @@
     $('btn-preview').addEventListener('click', function () {
       VeloMD.settings.update({ showPreview: S().showPreview === false });
     });
+    // önizlemede bir bloğa tıklayınca editörde karşılığına git + vurgula
+    $('preview-pane').addEventListener('click', function (ev) {
+      if (ev.target.closest('a')) return; // bağlantılar tarayıcıya gider
+      const block = ev.target.closest('[data-source-line]');
+      if (!block) return;
+      const line = Math.max(0, parseInt(block.dataset.sourceLine, 10) || 0);
+      cm.setCursor({ line: line, ch: 0 });
+      if (VeloMD.sync) VeloMD.sync.suppress(600);
+      cm.scrollIntoView({ line: line, ch: 0 }, 40);
+      cm.focus();
+    });
     document.querySelectorAll('.tb-btn[data-md]').forEach(function (btn) {
       btn.addEventListener('click', function () { editor().applyAction(btn.dataset.md); });
     });
