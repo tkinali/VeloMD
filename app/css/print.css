@@ -53,3 +53,24 @@ html, body { background: #ffffff !important; }
 #preview[data-theme] .hljs-addition { color: #22863a !important; background-color: #f0fff4 !important; }
 #preview[data-theme] .hljs-deletion { color: #b31d28 !important; background-color: #ffeef0 !important; }
 }
+
+/* uzun komutlar ve geniş tablolar sayfaya sığsın (scrollbar basılmasın) */
+#preview pre,
+#preview pre code {
+  white-space: pre-wrap !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+  overflow: visible !important;
+}
+#preview code { overflow-wrap: anywhere !important; }
+#preview table {
+  display: table !important;
+  width: 100% !important;
+  table-layout: fixed !important;
+  overflow: visible !important;
+}
+#preview th,
+#preview td {
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+}
