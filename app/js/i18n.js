@@ -11,6 +11,12 @@
       'menu.open': 'Dosya aç (Ctrl+O)',
       'menu.save': 'Kaydet (Ctrl+S)',
       'menu.settings': 'Ayarlar (Ctrl+,)',
+      'menu.about': 'Hakkında',
+
+      'about.desc': 'Linux için hafif, bölünmüş önizlemeli Markdown editörü — sekmeler, bul/değiştir, iki dilli arayüz.',
+      'about.developer': 'Geliştiren',
+      'about.ai': 'Yapay zekâ katkısı',
+      'about.license': 'MIT lisansı · GTK4 + WebKit2GTK ile yapıldı',
       'divider.hint': 'Bölümü sürükleyerek ayarla · çift tık: eşit böl',
 
       'tb.bold': 'Kalın (Ctrl+B)',
@@ -106,6 +112,12 @@
       'menu.open': 'Open file (Ctrl+O)',
       'menu.save': 'Save (Ctrl+S)',
       'menu.settings': 'Settings (Ctrl+,)',
+      'menu.about': 'About',
+
+      'about.desc': 'A featherweight Markdown editor for Linux — tabs, find & replace, bilingual UI.',
+      'about.developer': 'Developed by',
+      'about.ai': 'AI-assisted by',
+      'about.license': 'MIT license · built on GTK4 + WebKit2GTK',
       'divider.hint': 'Drag to resize · double-click: split evenly',
 
       'tb.bold': 'Bold (Ctrl+B)',

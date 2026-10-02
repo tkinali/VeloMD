@@ -213,7 +213,7 @@ class BridgeApi:
     # ---- ayarlar / oturum ----------------------------------------------
 
     def api_get_settings(self):
-        return {'ok': True, 'settings': self.app.settings}
+        return {'ok': True, 'settings': self.app.settings, 'version': APP_VERSION}
 
     def api_save_settings(self, settings):
         self.app.settings = settings

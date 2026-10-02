@@ -297,23 +297,18 @@
   }
 
   /* ------------------------------------------------------------
-     PDF olarak kaydet — daima açık (light) görünümde
+     PDF olarak kaydet — ekranda tema değişmez; print.css sayesinde
+     PDF'e daima açık (light) görünüm basılır
      ------------------------------------------------------------ */
   async function exportPdf() {
     const tab = tabs().current();
     const suggested = tab ? tab.name.replace(/\.(md|markdown|txt)$/i, '.pdf') : 'velomd.pdf';
-    // PDF her zaman beyaz sayfa olsun: yazdırma bitene kadar light tema
-    VeloMD.settings.setPreviewDomTheme('github-light');
-    try {
-      const res = await bridge().callAsync('export_pdf', { suggested_name: suggested });
-      if (res && res.ok && res.path) {
-        const st = $('st-save');
-        st.textContent = '⤓ PDF: ' + res.path.split('/').pop();
-        st.className = 'saved';
-        setTimeout(function () { updateStatus(); }, 2500);
-      }
-    } finally {
-      VeloMD.settings.setPreviewDomTheme(null);
+    const res = await bridge().callAsync('export_pdf', { suggested_name: suggested });
+    if (res && res.ok && res.path) {
+      const st = $('st-save');
+      st.textContent = '⤓ PDF: ' + res.path.split('/').pop();
+      st.className = 'saved';
+      setTimeout(function () { updateStatus(); }, 2500);
     }
   }
 
@@ -329,6 +324,18 @@
     if (!show && VeloMD.pvSearch && VeloMD.pvSearch.isOpen()) {
       VeloMD.pvSearch.close();
     }
+  }
+
+  /* ------------------------------------------------------------
+     Hakkında
+     ------------------------------------------------------------ */
+  function openAbout() {
+    $('about-version').textContent = 'v' + (VeloMD.settings.state.appVersion || '?');
+    $('about-backdrop').classList.remove('hidden');
+  }
+
+  function closeAbout() {
+    $('about-backdrop').classList.add('hidden');
   }
 
   /* ------------------------------------------------------------
@@ -550,6 +557,7 @@
       const mod = ev.ctrlKey || ev.metaKey;
 
       if (ev.key === 'Escape') {
+        if (!$('about-backdrop').classList.contains('hidden')) { closeAbout(); return; }
         if (VeloMD.edSearch && VeloMD.edSearch.isOpen()) {
           VeloMD.edSearch.close();
           return;
@@ -730,6 +738,11 @@
     initKeys();
     VeloMD.pvSearch.init();
     VeloMD.edSearch.init(cm);
+    $('btn-about').addEventListener('click', openAbout);
+    $('about-close').addEventListener('click', closeAbout);
+    $('about-backdrop').addEventListener('pointerdown', function (ev) {
+      if (ev.target === $('about-backdrop')) closeAbout();
+    });
 
     updateStatus();
     renderPreview();

@@ -1,0 +1,55 @@
+/*
+ * #preview[data-theme] yazdirma gorunumu: hangi tema secili olursa olsun,
+ * PDF'e GitHub Light renkleri basilir. Bu dosya github-light.css'ten
+ * otomatik uretilmistir; tema degisirse yeniden uretin.
+ */
+@media print {
+html, body { background: #ffffff !important; }
+/* GitHub Light önizleme teması */
+#preview[data-theme] { background: #ffffff !important; color: #1f2328 !important; }
+#preview[data-theme] h1,
+#preview[data-theme] h2,
+#preview[data-theme] h3,
+#preview[data-theme] h4,
+#preview[data-theme] h5,
+#preview[data-theme] h6 { color: #1f2328 !important; border-color: #d1d9e0 !important; }
+#preview[data-theme] a { color: #0969da !important; }
+#preview[data-theme] blockquote { color: #59636e !important; border-color: #d1d9e0 !important; }
+#preview[data-theme] code { background: rgba(175, 184, 193, 0.22) !important; color: #1f2328 !important; }
+#preview[data-theme] pre { background: #f6f8fa !important; }
+#preview[data-theme] pre code { color: #24292e !important; }
+#preview[data-theme] th, #preview[data-theme] td { border-color: #d1d9e0 !important; }
+#preview[data-theme] th { background: #f6f8fa !important; }
+#preview[data-theme] tr { background: #ffffff !important; }
+#preview[data-theme] tr:nth-child(2n) { background: #f6f8fa !important; }
+#preview[data-theme] hr { background: #d1d9e0 !important; }
+#preview[data-theme] img { background: #ffffff !important; }
+#preview[data-theme] mark { background: #fff8c5 !important; color: #1f2328 !important; }
+#preview[data-theme] kbd { background: #f6f8fa !important; border-color: #d1d9e0 !important; color: #1f2328 !important; }
+
+/* kod renklendirme (github light) */
+#preview[data-theme] .hljs { color: #24292e !important; background: #f6f8fa !important; }
+#preview[data-theme] .hljs-doctag, #preview[data-theme] .hljs-keyword,
+#preview[data-theme] .hljs-meta .hljs-keyword, #preview[data-theme] .hljs-template-tag,
+#preview[data-theme] .hljs-template-variable, #preview[data-theme] .hljs-type,
+#preview[data-theme] .hljs-variable.language_ { color: #d73a49 !important; }
+#preview[data-theme] .hljs-title, #preview[data-theme] .hljs-title.class_,
+#preview[data-theme] .hljs-title.class_.inherited__, #preview[data-theme] .hljs-title.function_ { color: #6f42c1 !important; }
+#preview[data-theme] .hljs-attr, #preview[data-theme] .hljs-attribute,
+#preview[data-theme] .hljs-literal, #preview[data-theme] .hljs-meta,
+#preview[data-theme] .hljs-number, #preview[data-theme] .hljs-operator,
+#preview[data-theme] .hljs-selector-attr, #preview[data-theme] .hljs-selector-class,
+#preview[data-theme] .hljs-selector-id, #preview[data-theme] .hljs-variable { color: #005cc5 !important; }
+#preview[data-theme] .hljs-meta .hljs-string, #preview[data-theme] .hljs-regexp,
+#preview[data-theme] .hljs-string { color: #032f62 !important; }
+#preview[data-theme] .hljs-built_in, #preview[data-theme] .hljs-symbol { color: #e36209 !important; }
+#preview[data-theme] .hljs-code, #preview[data-theme] .hljs-comment,
+#preview[data-theme] .hljs-formula { color: #6a737d !important; }
+#preview[data-theme] .hljs-name, #preview[data-theme] .hljs-quote,
+#preview[data-theme] .hljs-selector-pseudo, #preview[data-theme] .hljs-selector-tag { color: #22863a !important; }
+#preview[data-theme] .hljs-subst { color: #24292e !important; }
+#preview[data-theme] .hljs-section { color: #005cc5 !important; font-weight: 700 !important; }
+#preview[data-theme] .hljs-bullet { color: #735c0f !important; }
+#preview[data-theme] .hljs-addition { color: #22863a !important; background-color: #f0fff4 !important; }
+#preview[data-theme] .hljs-deletion { color: #b31d28 !important; background-color: #ffeef0 !important; }
+}
