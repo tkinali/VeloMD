@@ -414,16 +414,12 @@ body {
   overflow-wrap: break-word; /* kırılmayan uzun sözcükler bölmeyi genişletmesin */
 }
 
-/* kaynak satır eşleşme vurgusu: hafif turuncu zemin + sol şerit */
+/* kaynak satır eşleşme vurgusu: hafif turuncu zemin + sol şerit
+   (margin/padding oynaması yok — bloğun yerleşimi değişmez) */
 #preview .sync-source-highlight {
-  position: relative;
   background: rgba(249, 138, 37, 0.13);
   box-shadow: inset 3px 0 0 0 var(--accent);
   border-radius: 4px;
-  margin-left: -6px;
-  margin-right: -6px;
-  padding-left: 6px;
-  padding-right: 6px;
 }
 
 /* ------------------------------------------------------------
@@ -433,11 +429,11 @@ body {
 #preview > :first-child { margin-top: 0 !important; }
 #preview h1, #preview h2, #preview h3, #preview h4, #preview h5, #preview h6 {
   font-weight: 650;
-  line-height: 1.3;
-  margin: 1.4em 0 0.55em;
+  line-height: 1.25;
+  margin: 1.2em 0 0.4em;
 }
-#preview h1 { font-size: 1.85em; padding-bottom: 0.3em; border-bottom: 1px solid; }
-#preview h2 { font-size: 1.45em; padding-bottom: 0.3em; border-bottom: 1px solid; }
+#preview h1 { font-size: 1.85em; padding-bottom: 0.15em; border-bottom: 1px solid; }
+#preview h2 { font-size: 1.45em; padding-bottom: 0.15em; border-bottom: 1px solid; }
 #preview h3 { font-size: 1.22em; }
 #preview h4 { font-size: 1.05em; }
 #preview p { margin: 0.65em 0; }

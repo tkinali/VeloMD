@@ -74,3 +74,9 @@ html, body { background: #ffffff !important; }
   overflow-wrap: anywhere !important;
   word-break: break-word !important;
 }
+
+/* seçili satır vurgusu PDF'e basılmasın */
+#preview .sync-source-highlight {
+  background: transparent !important;
+  box-shadow: none !important;
+}
