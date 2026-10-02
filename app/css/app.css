@@ -414,10 +414,11 @@ body {
   overflow-wrap: break-word; /* kırılmayan uzun sözcükler bölmeyi genişletmesin */
 }
 
-/* kaynak satır eşleşme vurgusu: hafif turuncu zemin + sol şerit
-   (margin/padding oynaması yok — bloğun yerleşimi değişmez) */
-#preview .sync-source-highlight {
-  background: rgba(249, 138, 37, 0.13);
+/* kaynak satır eşleşme vurgusu: bloğun kendi arka planı KORUNUR,
+   turuncu ton background-image katmanı olarak üstüne biner; sol şerit
+   inset gölgeyle çizilir (margin/padding oynaması yok) */
+#preview[data-theme] .sync-source-highlight {
+  background-image: linear-gradient(rgba(249, 138, 37, 0.13), rgba(249, 138, 37, 0.13));
   box-shadow: inset 3px 0 0 0 var(--accent);
   border-radius: 4px;
 }
@@ -839,8 +840,8 @@ input[type="range"]::-webkit-slider-thumb {
 [data-ui-theme='light'] .CodeMirror span.cm-def { color: #953800; }
 
 /* vurgu bandı light'ta biraz daha belirgin */
-[data-ui-theme='light'] #preview .sync-source-highlight {
-  background: rgba(201, 100, 17, 0.16);
+[data-ui-theme='light'] #preview[data-theme] .sync-source-highlight {
+  background-image: linear-gradient(rgba(201, 100, 17, 0.16), rgba(201, 100, 17, 0.16));
 }
 
 /* CodeMirror bul/değiştir — uygulamanın kendi çubuğu */
