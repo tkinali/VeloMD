@@ -418,8 +418,8 @@ body {
    turuncu ton background-image katmanı olarak üstüne biner; sol şerit
    inset gölgeyle çizilir (margin/padding oynaması yok) */
 #preview[data-theme] .sync-source-highlight {
-  background-image: linear-gradient(rgba(249, 138, 37, 0.13), rgba(249, 138, 37, 0.13));
-  box-shadow: inset 3px 0 0 0 var(--accent);
+  background-image: linear-gradient(rgba(249, 138, 37, 0.22), rgba(249, 138, 37, 0.22)) !important;
+  box-shadow: inset 4px 0 0 0 var(--accent) !important;
   border-radius: 4px;
 }
 
@@ -841,7 +841,7 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* vurgu bandı light'ta biraz daha belirgin */
 [data-ui-theme='light'] #preview[data-theme] .sync-source-highlight {
-  background-image: linear-gradient(rgba(201, 100, 17, 0.16), rgba(201, 100, 17, 0.16));
+  background-image: linear-gradient(rgba(201, 100, 17, 0.16), rgba(201, 100, 17, 0.16)) !important;
 }
 
 /* CodeMirror bul/değiştir — uygulamanın kendi çubuğu */
