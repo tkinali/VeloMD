@@ -304,12 +304,18 @@
     const tab = tabs().current();
     const suggested = tab ? tab.name.replace(/\.(md|markdown|txt)$/i, '.pdf') : 'velomd.pdf';
     const res = await bridge().callAsync('export_pdf', { suggested_name: suggested });
+    const st = $('st-save');
     if (res && res.ok && res.path) {
-      const st = $('st-save');
       st.textContent = '⤓ PDF: ' + res.path.split('/').pop();
       st.className = 'saved';
-      setTimeout(function () { updateStatus(); }, 2500);
+    } else if (res && res.ok === false) {
+      st.textContent = '✗ PDF: ' + (res.error || 'hata');
+      st.className = 'unsaved';
+    } else {
+      st.textContent = 'PDF: iptal';
+      st.className = '';
     }
+    setTimeout(function () { updateStatus(); }, 2500);
   }
 
   /* ------------------------------------------------------------

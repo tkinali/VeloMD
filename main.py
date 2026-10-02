@@ -250,15 +250,18 @@ class BridgeApi:
             try:
                 file = d.save_finish(res)
                 path = file.get_path() if file else None
-            except GLib.Error:
+            except GLib.Error as exc:
+                print('PDF: kaydetme penceresi hata/iptal:', exc.domain, exc.message,
+                      file=sys.stderr)
                 path = None
             if not path:
                 self.app.resolve_async(_async_id, {'ok': True, 'path': None})
                 return
             if not path.lower().endswith('.pdf'):
                 path += '.pdf'
+            print('PDF: yazılıyor →', path, file=sys.stderr)
             self._remember_dir(path)
-            self.app.export_pdf(path, async_id)
+            self.app.export_pdf(path, _async_id)
 
         dlg.save(self.app.window, None, cb)
         return {'__async__': True}
@@ -551,6 +554,7 @@ class VeloMDApp(Gtk.Application):
                 if state['done']:
                     return
                 state['done'] = True
+                print('PDF: yazdırma başarısız (failed sinyali)', file=sys.stderr)
                 self.api.resolve_async(async_id, {'ok': False, 'error': 'failed'})
 
             po.connect('finished', finished)
