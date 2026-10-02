@@ -148,6 +148,12 @@
     });
 
     cm.on('cursorActivity', function () {
+      // önizlemeden tıklama ile gelen imleç taşımasının önkizlemeyi
+      // kıpırdatmaması için kilit süresi boyunca scroll senkronu atlanır
+      if (Date.now() < guardUntil) {
+        highlightCursorBlock();
+        return;
+      }
       requestScroll('to-preview');
       highlightCursorBlock();
     });

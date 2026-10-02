@@ -76,7 +76,33 @@ html, body { background: #ffffff !important; }
 }
 
 /* seçili satır vurgusu PDF'e basılmasın */
-#preview .sync-source-highlight {
-  background: transparent !important;
-  box-shadow: none !important;
+
+/* vurgu PDF'e asla basılmasın — ekran kurallarıyla AYNI seçici gücüyle,
+   @media print'e SARILI (ekran görünümüne etkisi yoktur) */
+@media print {
+  #preview[data-theme] .sync-source-highlight {
+    background-image: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    position: static !important;
+  }
+  #preview[data-theme] .sync-source-highlight::before {
+    content: none !important;
+    display: none !important;
+  }
+}
+
+/* KAPSAYICI: yazdırmada yalnızca önizleme görünür — başka hiçbir
+   arayüz öğesi (beklenmedik bir biçimde) PDF'e sızamaz */
+@media print {
+  body * { visibility: hidden !important; }
+  #preview-pane, #preview-pane * { visibility: visible !important; }
+  #preview-pane {
+    display: block !important;
+    position: absolute !important;
+    inset: 0 !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+  }
+  #preview { visibility: visible !important; }
 }

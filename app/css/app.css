@@ -418,9 +418,41 @@ body {
    turuncu ton background-image katmanı olarak üstüne biner; sol şerit
    inset gölgeyle çizilir (margin/padding oynaması yok) */
 #preview[data-theme] .sync-source-highlight {
-  background-image: linear-gradient(rgba(249, 138, 37, 0.22), rgba(249, 138, 37, 0.22)) !important;
-  box-shadow: inset 4px 0 0 0 var(--accent) !important;
-  border-radius: 4px;
+  /* yumuşak ton + ince sol şerit (2px), harfle arasında 4px boşluk;
+     tüm blok türlerinde aynı dikey hizada */
+  position: relative;
+  background-image: linear-gradient(rgba(249, 138, 37, 0.11), rgba(249, 138, 37, 0.11)) !important;
+  border-radius: 6px;
+}
+/* şerit yalnızca gerçek blok tiplerinde çizilir (beyaz liste);
+   tablo elemanları (table/tr/tbody/th/td) ::before'la anonim hücre
+   yarattığı için bu listede YOKTUR — tablolar sadece ton alır */
+#preview[data-theme] p.sync-source-highlight::before,
+#preview[data-theme] h1.sync-source-highlight::before,
+#preview[data-theme] h2.sync-source-highlight::before,
+#preview[data-theme] h3.sync-source-highlight::before,
+#preview[data-theme] h4.sync-source-highlight::before,
+#preview[data-theme] h5.sync-source-highlight::before,
+#preview[data-theme] h6.sync-source-highlight::before,
+#preview[data-theme] pre.sync-source-highlight::before,
+#preview[data-theme] blockquote.sync-source-highlight::before,
+#preview[data-theme] ul.sync-source-highlight::before,
+#preview[data-theme] ol.sync-source-highlight::before,
+#preview[data-theme] hr.sync-source-highlight::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+/* kod bloğundaki .hljs kutusu vurguyu parçalamasın: vurgu sırasında
+   kendi arka planı kalkar, pre zemini + ton bütün olarak görünür */
+#preview[data-theme] pre.sync-source-highlight code.hljs,
+#preview[data-theme] pre.sync-source-highlight code {
+  background: transparent !important;
 }
 
 /* ------------------------------------------------------------
@@ -841,7 +873,7 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* vurgu bandı light'ta biraz daha belirgin */
 [data-ui-theme='light'] #preview[data-theme] .sync-source-highlight {
-  background-image: linear-gradient(rgba(201, 100, 17, 0.16), rgba(201, 100, 17, 0.16)) !important;
+  background-image: linear-gradient(rgba(201, 100, 17, 0.10), rgba(201, 100, 17, 0.10)) !important;
 }
 
 /* CodeMirror bul/değiştir — uygulamanın kendi çubuğu */
@@ -954,3 +986,7 @@ input[type="range"]::-webkit-slider-thumb {
 .about-links a { color: #58a6ff; font-size: 13px; }
 .about-links a:hover { text-decoration: underline; }
 .about-license { padding: 8px 22px 4px; font-size: 11.5px; color: var(--fg-faint); }
+
+/* sekme sürükle-bırak */
+.tab.dragging { opacity: 0.45; }
+.tab.drag-over { box-shadow: inset 2px 0 0 0 var(--accent); }

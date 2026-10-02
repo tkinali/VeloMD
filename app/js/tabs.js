@@ -6,6 +6,7 @@
   const list = [];
   let active = -1;
   let untitledSeq = 0;
+  let dragFrom = -1;
 
   const bar = () => document.getElementById('tabbar');
 
@@ -78,6 +79,18 @@
     emitChanged();
   }
 
+  /* sekme sırasını değiştir (sürükle-bırak); aktif sekme obje olarak
+     takip edilir, doc swap'ına gerek kalmaz */
+  function reorder(from, to) {
+    if (from === to || from < 0 || to < 0 || from >= list.length || to >= list.length) return;
+    const activeTab = list[active];
+    const moved = list.splice(from, 1)[0];
+    list.splice(to, 0, moved);
+    active = list.indexOf(activeTab);
+    buildBar();
+    emitChanged();
+  }
+
   function buildBar() {
     const el = bar();
     el.innerHTML = '';
@@ -98,6 +111,30 @@
       node.appendChild(label);
       node.appendChild(dirty);
       node.appendChild(close);
+      // sürükle-bırak ile yeniden sıralama
+      node.draggable = true;
+      node.addEventListener('dragstart', function (ev) {
+        dragFrom = i;
+        node.classList.add('dragging');
+        ev.dataTransfer.effectAllowed = 'move';
+        try { ev.dataTransfer.setData('text/plain', String(i)); } catch (e) {}
+      });
+      node.addEventListener('dragend', function () {
+        node.classList.remove('dragging');
+        el.querySelectorAll('.tab').forEach(function (n) { n.classList.remove('drag-over'); });
+        dragFrom = -1;
+      });
+      node.addEventListener('dragover', function (ev) {
+        ev.preventDefault();
+        ev.dataTransfer.dropEffect = 'move';
+        el.querySelectorAll('.tab').forEach(function (n) { n.classList.remove('drag-over'); });
+        if (dragFrom !== i) node.classList.add('drag-over');
+      });
+      node.addEventListener('drop', function (ev) {
+        ev.preventDefault();
+        node.classList.remove('drag-over');
+        if (dragFrom >= 0) reorder(dragFrom, i);
+      });
       node.addEventListener('click', function (ev) {
         if (ev.target === close) return;
         activate(i);
@@ -125,6 +162,7 @@
     create,
     activate,
     remove,
+    reorder,
     current,
     markDirty,
     buildBar,

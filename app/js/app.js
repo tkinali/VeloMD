@@ -723,16 +723,21 @@
     $('btn-preview').addEventListener('click', function () {
       VeloMD.settings.update({ showPreview: S().showPreview === false });
     });
-    // önizlemede bir bloğa tıklayınca editörde karşılığına git + vurgula
-    // (odak önizlemede kalır: Ctrl+F hâlâ önizleme aramasını açar)
+    // önizlemede bir bloğa tıklayınca editörde karşılığına git + vurgula.
+    // Önizleme HİÇ kıpırdamaz; editör hedefi sabit olarak pencerenin
+    // ortası civarında (%45) konumlar.
     $('preview-pane').addEventListener('click', function (ev) {
       if (ev.target.closest('a')) return; // bağlantılar tarayıcıya gider
       const block = ev.target.closest('[data-source-line]');
       if (!block) return;
       const line = Math.max(0, parseInt(block.dataset.sourceLine, 10) || 0);
+
+      // önce kilidi kur, sonra imleci taşı (cursorActivity senkronu tetiklemesin)
+      if (VeloMD.sync) VeloMD.sync.suppress(1200);
       cm.setCursor({ line: line, ch: 0 });
-      if (VeloMD.sync) VeloMD.sync.suppress(600);
-      cm.scrollIntoView({ line: line, ch: 0 }, 40);
+      const info = cm.getScrollInfo();
+      // CM'nin kendi scrollIntoView'u: margin = üstten istenen mesafe
+      cm.scrollIntoView({ line: line, ch: 0 }, Math.round(info.clientHeight * 0.45));
     });
     // PDF olarak kaydet (düğme + Ctrl+P)
     $('btn-pdf').addEventListener('click', exportPdf);
